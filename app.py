@@ -1,33 +1,61 @@
-"""Small UI for semantic retrieval with transparent Wikipedia sources."""
 import streamlit as st
 from src.search import search
+from src.generation import generate_answer
 
-st.set_page_config(page_title="Wikipedia Vector Search", page_icon="🔎", layout="wide")
-st.title("Wikipedia Vector Search")
-st.caption("Area 4 — Native vector search and retrieval with MariaDB 11.8")
-st.write("Ask a question to retrieve relevant Wikipedia passages. This prototype shows source excerpts rather than generating unsupported answers.")
+st.set_page_config(
+    page_title="MariaDB Vector Search & RAG",
+    page_icon="🔎",
+    layout="wide",
+)
+
+st.title("MariaDB Vector Search & RAG")
+st.caption("Area 4 — MariaDB 11.8 + local Ollama LLM")
+st.write("Ask a question. MariaDB retrieves relevant Wikipedia passages, and Ollama generates an answer grounded in those sources.")
 
 with st.form("search_form"):
-    question = st.text_input("Your question", placeholder="How are databases used in information retrieval?")
-    category = st.text_input("Optional category filter", placeholder="Leave empty for all categories")
-    top_k = st.slider("Number of passages", min_value=1, max_value=10, value=5)
-    submitted = st.form_submit_button("Search")
+    question = st.text_input(
+        "Your question",
+        placeholder="How do computers learn from data?",
+    )
+    category = st.text_input(
+        "Optional category filter",
+        placeholder="Leave empty for all categories",
+    )
+    top_k = st.slider("Number of passages", 1, 10, 5)
+    submitted = st.form_submit_button("Ask")
 
 if submitted:
     if not question.strip():
-        st.warning("Enter a question first.")
+        st.warning("Please enter a question.")
     else:
         try:
-            results, elapsed = search(question.strip(), top_k, category.strip() or None)
-            st.caption(f"{len(results)} passages · query and database time: {elapsed:.1f} ms")
+            with st.spinner("Searching MariaDB..."):
+                results, elapsed = search(
+                    question.strip(),
+                    top_k,
+                    category.strip() or None,
+                )
+
+            st.caption(f"Retrieved {len(results)} passages in {elapsed:.1f} ms.")
+
             if not results:
-                st.info("No chunks found. Run the ingestion command first.")
-            for index, item in enumerate(results, 1):
-                with st.container(border=True):
-                    st.subheader(f"{index}. {item['title']}")
-                    st.caption(f"Cosine similarity: {item['score']:.3f} · {item['word_count'] if 'word_count' in item else len(item['content'].split())} words")
-                    st.write(item["content"])
-                    st.markdown(f"[Open Wikipedia source]({item['wiki_url']})")
+                st.warning("No passages found. Check your indexed articles.")
+            else:
+                with st.spinner("Generating answer with Ollama..."):
+                    answer = generate_answer(question.strip(), results)
+
+                st.subheader("Answer")
+                st.markdown(answer)
+
+                st.subheader("Sources")
+                for i, item in enumerate(results, 1):
+                    with st.expander(
+                        f"{i}. {item['title']} "
+                        f"(similarity {item['score']:.3f})"
+                    ):
+                        st.write(item["content"])
+                        st.markdown(f"[Open Wikipedia source]({item['wiki_url']})")
+
         except Exception as exc:
-            st.error(f"Search failed: {exc}")
-            st.info("Check that MariaDB is running, the schema exists, and the ingestion step completed.")
+            st.error(f"Error: {exc}")
+            st.info("Check that MariaDB and Ollama are running.")
