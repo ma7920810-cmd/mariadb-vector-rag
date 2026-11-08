@@ -194,4 +194,4 @@ The project is divided into four areas:
 - Embeddings and semantic retrieval.
 - Application, answer generation, and evaluation.
 
-See `TEAM_HANDOVER.md` for the detailed task allocation and deliverables.
+
