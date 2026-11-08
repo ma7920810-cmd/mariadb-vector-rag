@@ -10,10 +10,18 @@ from bs4 import BeautifulSoup
 from src.chunking import chunk_text
 from src.db import connect, vector_literal
 from src.embeddings import embed_texts
-
 SEED_PAGES = [
-    "Computer science", "Database", "Information retrieval",
-    "Machine learning", "Wikipedia",
+    "Computer science",
+    "Database",
+    "Information retrieval",
+    "Machine learning",
+    "Neural network",
+
+    "Database management system",
+    "Computer data storage",
+    "Supervised learning",
+    "Gradient descent",
+    "Backpropagation",
 ]
 API = "https://en.wikipedia.org/w/api.php"
 HEADERS = {"User-Agent": "ConstructorUniversityVectorRAG/0.1 (student project)"}

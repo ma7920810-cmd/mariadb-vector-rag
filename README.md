@@ -1,128 +1,197 @@
-# Area 4 — Native Vector Search and RAG with MariaDB
+# Native Vector Search and RAG with MariaDB
 
-A four-person database project using **MariaDB 11.8**, native `VECTOR` storage, an HNSW vector index, semantic retrieval, and a small Wikipedia-backed search interface.
+**Constructor University — Database Systems Project, Area 4**
 
-## What works in this starter
+A retrieval-augmented question-answering system built around MariaDB 11.8 native vector search. It retrieves relevant Wikipedia passages using sentence embeddings and MariaDB cosine-distance queries, then uses a locally hosted Ollama language model to generate answers grounded in the retrieved passages.
 
-- MariaDB service and persistent local volume via Docker Compose.
-- Relational schema for Wikipedia articles and text chunks, including a native vector column and cosine-distance vector index.
-- Wikipedia ingestion pipeline: fetch pages, clean text, split into overlapping chunks, create 384-dimensional embeddings, and store them.
-- Semantic top-k search using MariaDB's `VEC_DISTANCE_COSINE` and SQL joins; optional category filter.
-- Minimal Streamlit interface that displays retrieved passages and their source links.
-- Unit tests for chunking.
+## Features
 
-The first ingestion run uses five seed pages. Expand the corpus only after verifying the complete pipeline.
+- MariaDB 11.8 with native `VECTOR(384)` storage.
+- HNSW vector index configured for cosine distance.
+- Sentence embeddings using `sentence-transformers/all-MiniLM-L6-v2`.
+- Semantic retrieval using `VEC_DISTANCE_COSINE`.
+- SQL joins between article metadata and text chunks.
+- Category filtering and configurable retrieval count.
+- Multiple-chunk-per-article limit to improve source diversity.
+- Local answer generation using Ollama and `llama3.2:3b`.
+- Streamlit interface displaying answers and expandable source passages.
+- Wikipedia article URLs retained for source attribution.
 
 ## Architecture
 
 ```text
-Wikipedia API
-    |
-    v
-fetch + clean --> overlapping chunks --> sentence-transformer embeddings
-                                            |
-                                            v
-                              MariaDB 11.8 (articles + VECTOR chunks)
-                                            |
-User question --> query embedding ----------+
-                                            |
-                                            v
-                            cosine-distance top-k retrieval
-                                            |
-                                            v
-                           Streamlit UI + source passages
+                  User question
+                        |
+                        v
+              Sentence Transformer
+                (384-d embedding)
+                        |
+                        v
+                MariaDB 11.8
+             Native vector retrieval
+             VEC_DISTANCE_COSINE
+                        |
+                        v
+               Ranked text chunks
+                        |
+                        v
+                Context preparation
+                        |
+                        v
+                 Ollama LLM
+                  llama3.2:3b
+                        |
+                        v
+                Generated answer
+                        |
+                        v
+                 Streamlit UI
+             Answer + source passages
+
+
+
+
+
+## Project Structure
+
+```text
+mariadb-vector-rag/
+├── app.py
+├── src/
+│   ├── config.py
+│   ├── db.py
+│   ├── embeddings.py
+│   ├── chunking.py
+│   ├── ingest.py
+│   ├── search.py
+│   └── generation.py
+├── sql/
+│   └── 001_schema.sql
+├── tests/
+│   └── test_chunking.py
+├── docker-compose.yml
+├── requirements.txt
+└── .env.example
 ```
 
 ## Requirements
 
-- Docker Desktop (or Docker Engine) with Compose
-- Python 3.11 or 3.12 recommended
-- Internet access for the first model download and Wikipedia ingestion
+- Python 3.11 or newer (use a version supported by the installed dependencies).
+- Docker and Docker Compose.
+- MariaDB 11.8.
+- Ollama.
+- Git.
 
-## Run locally
+## Setup
 
-1. Clone the repository and enter the directory:
+### 1. Clone the repository
 
-   ```bash
-   git clone https://github.com/ma7920810-cmd/mariadb-vector-rag.git
-   cd mariadb-vector-rag
-   ```
+```bash
+git clone https://github.com/ma7920810-cmd/mariadb-vector-rag.git
+cd mariadb-vector-rag
+```
 
-2. Create your local environment file. Change the example passwords for your own machine:
+### 2. Start MariaDB
 
-   ```bash
-   cp .env.example .env
-   ```
+```bash
+docker compose up -d
+```
 
-   On Windows PowerShell, use `Copy-Item .env.example .env`.
+Wait until the database container is healthy.
 
-3. Start MariaDB:
+### 3. Configure Python
 
-   ```bash
-   docker compose up -d
-   docker compose ps
-   docker compose logs -f mariadb
-   ```
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-   The schema is mounted as an initialization script. Docker runs it only when the database volume is first initialized. If you change the initial schema during development, apply the SQL manually or reset the local volume (resetting it deletes local database data).
+### 4. Configure environment variables
 
-4. Create and activate a Python environment:
+```bash
+cp .env.example .env
+```
 
-   **Windows PowerShell**
-   ```powershell
-   py -3.12 -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   python -m pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
+Edit `.env` with your MariaDB connection settings and other configuration values.
 
-   **Linux / WSL / macOS**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   python -m pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
+### 5. Start Ollama
 
-5. Ingest the initial Wikipedia pages (downloads the embedding model on first run):
+Install Ollama from https://ollama.com and download the model:
 
-   ```bash
-   python -m src.ingest
-   ```
+```bash
+ollama pull llama3.2:3b
+```
 
-6. Start the interface:
+Make sure the Ollama service is running.
 
-   ```bash
-   streamlit run app.py
-   ```
+### 6. Initialize and populate the database
+Start MariaDB using Docker Compose. The schema in sql/001_schema.sql is automatically executed when the database volume is initialized for the first time.
 
-7. Run the unit tests:
+docker compose up -d
+docker compose ps
 
-   ```bash
-   python -m unittest discover -s tests -v
-   ```
+Wait until the MariaDB container reports that it is healthy.
 
-## Database design
+If you are using an existing database volume, the initialization script will not run again automatically. In that case, initialize or update the schema manually if necessary.
 
-- `articles`: article title, canonical Wikipedia URL, page ID, category, fetch timestamp.
-- `chunks`: article reference, chunk order, text, word count, and `VECTOR(384)` embedding.
-- `VECTOR INDEX`: HNSW index configured for cosine distance.
-- Query retrieval uses a normal SQL join so relational filters can be combined with semantic ranking.
+Ingest the Wikipedia articles:
 
-Confirm the exact vector-index and vector-function syntax against the MariaDB 11.8 server image used by your team before the demonstration; native vector features are version-specific.
+python -m src.ingest
 
-## Four-person work split
+### 7. Launch the application
 
-1. **Database / infrastructure:** MariaDB setup, schema, index configuration, SQL correctness, performance measurements.
-2. **Corpus / ingestion:** Wikipedia data acquisition, cleaning, chunking, deduplication, and corpus expansion.
-3. **Embeddings / retrieval:** embedding model evaluation, semantic top-k retrieval, metadata filters, and hybrid-search experiments.
-4. **Application / evaluation:** Streamlit UX, source excerpts, test queries, retrieval evaluation, and demo/report integration.
+```bash
+streamlit run app.py
+```
 
-Everyone should review and understand the SQL and contribute to evaluation. Pick a focused Wikipedia topic after the initial end-to-end pipeline runs.
+Open the local Streamlit URL shown in the terminal.
 
-## Important notes
+## Testing
 
-- Do not commit `.env`, passwords, model files, or a large Wikipedia dump.
-- The supplied credentials are local development defaults only; do not expose this database to a public network.
-- This first version performs retrieval and shows source passages; it does **not** yet generate an LLM answer. The RAG generation stage and hybrid lexical/vector ranking are follow-up tasks.
-- Wikipedia text is available under its applicable license; preserve attribution and source URLs in any report or demo.
+Run the available unit tests:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Check Python syntax:
+
+```bash
+python -m compileall -q app.py src tests
+```
+
+## Current Corpus
+
+The ingestion pipeline currently uses these ten Wikipedia articles:
+
+1. Computer science
+2. Database
+3. Information retrieval
+4. Machine learning
+5. Neural network
+6. Database management system
+7. Computer data storage
+8. Supervised learning
+9. Gradient descent
+10. Backpropagation
+
+## Current Limitations and Future Work
+
+- Citation validation checks source-number references, not the factual support of every claim.
+- Retrieval quality needs systematic evaluation against a prepared question set.
+- HNSW index usage and query performance should be verified with query plans and benchmarks.
+- Hybrid lexical and vector retrieval can be explored.
+- GPU acceleration and embedding optimization are future improvements.
+- The corpus can be expanded with additional relevant Wikipedia articles.
+
+## Team Contributions
+
+The project is divided into four areas:
+
+- Database and infrastructure.
+- Corpus collection and ingestion.
+- Embeddings and semantic retrieval.
+- Application, answer generation, and evaluation.
+
+See `TEAM_HANDOVER.md` for the detailed task allocation and deliverables.
