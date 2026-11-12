@@ -185,6 +185,30 @@ The ingestion pipeline currently uses these ten Wikipedia articles:
 - GPU acceleration and embedding optimization are future improvements.
 - The corpus can be expanded with additional relevant Wikipedia articles.
 
+## Vector Search Performance & Benchmarking
+
+### HNSW Index Architecture
+Semantic search queries use MariaDB's native `VECTOR(384)` data type paired with an **HNSW (Hierarchical Navigable Small World)** vector index (`DISTANCE=cosine`) on `chunks.embedding`. 
+
+- **Index Validation:** Verified using `EXPLAIN`, confirming that `ORDER BY VEC_DISTANCE_COSINE(...) LIMIT N` utilizes the `embedding` index (`type: index`) rather than falling back to a full table scan (`type: ALL`).
+- **Tuning Parameters:** 
+  - **`M` (Graph Connections):** Configured with MariaDB's default (`M=6`), balancing fast index build times and low memory overhead with strong recall. Higher values (e.g., `M=16` or `32`) can be used at index creation to improve recall on larger datasets.
+  - **`mhnsw_ef_search` (Search Candidate Pool):** Defaults to `20`. Increasing this session variable (e.g., `SET SESSION mhnsw_ef_search = 100;`) expands the candidate search pool for higher precision at the cost of slightly higher query latency.
+
+### Benchmark Results
+Using `benchmark.py` across a dataset of ~102 ingested Wikipedia articles (20 query iterations per test), comparing HNSW-indexed search against a forced full table scan (`IGNORE INDEX (embedding)`):
+
+| Search Method | Total Time (20 Queries) | Avg. Latency per Query | Speedup |
+| :--- | :--- | :--- | :--- |
+| **With HNSW Index** | `0.0279 s` | **`1.39 ms`** | **6.15x faster** |
+| **Without Index (Full Scan)** | `0.1716 s` | `8.58 ms` | Baseline (1.0x) |
+
+### Running the Benchmark
+1. Ensure data has been ingested into the database (e.g., `python3 -m src.ingest`).
+2. Run the benchmark script:
+   ```bash
+   python3 benchmark.py
+
 ## Team Contributions
 
 The project is divided into four areas:
