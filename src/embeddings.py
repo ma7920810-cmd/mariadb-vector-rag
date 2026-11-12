@@ -19,3 +19,15 @@ def embed_texts(texts):
 
 def embed_query(text):
     return embed_texts([text])[0]
+
+
+def count_over_limit(texts):
+    """Return (number of texts longer than the model input, token limit).
+
+    Text beyond ``max_seq_length`` word pieces is silently truncated by
+    sentence-transformers, so those parts of a chunk are never embedded.
+    """
+    encoder = model()
+    limit = encoder.max_seq_length
+    ids = encoder.tokenizer(list(texts), add_special_tokens=True)["input_ids"]
+    return sum(len(seq) > limit for seq in ids), limit
