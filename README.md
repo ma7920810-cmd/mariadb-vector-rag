@@ -194,4 +194,9 @@ The project is divided into four areas:
 - Embeddings and semantic retrieval.
 - Application, answer generation, and evaluation.
 
+## License
+
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.
+
 
