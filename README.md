@@ -11,13 +11,17 @@ A retrieval-augmented question-answering system built around MariaDB 11.8 native
 - Sentence embeddings using `sentence-transformers/all-MiniLM-L6-v2`.
 - Semantic retrieval using `VEC_DISTANCE_COSINE`.
 - SQL joins between article metadata and text chunks.
-- Category filtering and configurable retrieval count.
+- Category, minimum article word count, and ingestion-date filters in the same vector SQL query.
 - Multiple-chunk-per-article limit to improve source diversity.
 - Local answer generation using Ollama and `llama3.2:3b`.
 - Streamlit interface displaying answers and expandable source passages.
 - Wikipedia article URLs retained for source attribution.
 - Curated, categorised Wikipedia corpus (~70 articles) with incremental, idempotent ingestion.
 - Section- and sentence-aware chunking sized to the embedding model's 256-token input.
+
+## Why MariaDB Native Vectors
+
+Article metadata and embeddings live in the same MariaDB database. Retrieval uses one SQL statement to calculate `VEC_DISTANCE_COSINE`, join chunks to article rows, and apply ordinary relational predicates such as category, minimum article word count, and ingestion date. Transactions and the foreign key keep article and chunk writes consistent, with no separate vector service to synchronize. The current project does not store Wikipedia link relationships, so it does not claim link-graph filtering. The date filter uses local `fetched_at` ingestion time, not Wikipedia's last-edited timestamp.
 
 ## Architecture
 
@@ -198,6 +202,25 @@ Check Python syntax:
 python -m compileall -q app.py src tests
 ```
 
+## RAG Evaluation
+
+The evaluation set in `data/evaluation.json` contains 14 questions, expected relevant source articles selected from `data/corpus.json`, categories, and answer key points. Expected titles are article-level relevance labels; review them against the resolved Wikipedia titles in your database before reporting results. Add target-use-case questions and have another team member check the expected sources and key points to strengthen the ground truth.
+
+With MariaDB running and articles ingested, run the end-to-end evaluation:
+
+```bash
+python evaluate.py
+```
+
+This calls the same `search()` and Ollama `generate_answer()` functions as the app. It writes `evaluation-results.json` (summary plus each answer/error) and `evaluation-results.csv` (one row per question), which can be opened in a spreadsheet for charts. The summary reports Precision@k, Recall@k, MRR@k, nDCG@k, key-point coverage, citation presence/validity, failure rate, and mean/median/p95 latency. CSV fields support charts of retrieval metrics and latency by question. Model generation can be skipped to isolate retrieval:
+
+```bash
+python evaluate.py --retrieval-only
+python evaluate.py --k 10 --output reports/run-1
+```
+
+Run metric and SQL-filter unit tests with `python -m unittest tests.test_evaluation -v`. Retrieval relevance uses expected article titles at article level. Key-point coverage is a literal phrase-match proxy, not a semantic judge, and citation checks verify citation format/index range, not whether a cited passage supports each claim. Human review is needed for answer relevance and factual support. Latency depends on model warm-up, hardware, and database state; report those conditions with results. The first run can be slower while the embedding model initializes. Generation latency is primarily local Ollama/model performance.
+
 ## Current Corpus
 
 `data/corpus.json` lists about 70 English Wikipedia articles in five categories chosen to match the project topic: databases (including MariaDB, indexing and transactions), information retrieval and vector search (BM25, nearest-neighbour search, HNSW, RAG), machine learning, natural language processing and embeddings, and computer-science fundamentals. The original ten articles are all included. To grow the corpus, add titles to the file and re-run `python -m src.ingest`.
@@ -205,8 +228,8 @@ python -m compileall -q app.py src tests
 ## Current Limitations and Future Work
 
 - Citation validation checks source-number references, not the factual support of every claim.
-- Retrieval quality needs systematic evaluation against a prepared question set.
-- HNSW index usage and query performance should be verified with query plans and benchmarks.
+- Ground-truth title relevance should be independently reviewed and expanded as the corpus and use cases grow.
+- Article link relationships are not ingested, so link-based filters are not available.
 - Hybrid lexical and vector retrieval can be explored.
 - GPU acceleration and embedding optimization are future improvements.
 - Article quality classes (WikiProject assessments) could be stored and used to weight retrieval.

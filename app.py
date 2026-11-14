@@ -21,6 +21,10 @@ with st.form("search_form"):
         "Optional category filter",
         placeholder="Leave empty for all categories",
     )
+    min_words = st.number_input("Minimum article word count", min_value=0,
+                                 value=0, step=100)
+    fetched_after = st.date_input("Article ingested on or after (optional)",
+                                  value=None)
     top_k = st.slider("Number of passages", 1, 10, 5)
     submitted = st.form_submit_button("Ask")
 
@@ -34,6 +38,8 @@ if submitted:
                     question.strip(),
                     top_k,
                     category.strip() or None,
+                    int(min_words) or None,
+                    fetched_after.isoformat() if fetched_after else None,
                 )
 
             st.caption(f"Retrieved {len(results)} passages in {elapsed:.1f} ms.")

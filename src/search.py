@@ -7,15 +7,23 @@ from src.embeddings import embed_query
 from src.config import TOP_K
 
 
-def search(question, top_k=TOP_K, category=None):
+def search(question, top_k=TOP_K, category=None, min_article_words=None,
+           fetched_after=None):
     query_vector = vector_literal(embed_query(question))
 
-    where = ""
+    predicates = []
     params = [query_vector]
 
     if category:
-        where = "WHERE a.category = ?"
+        predicates.append("a.category = ?")
         params.append(category)
+    if min_article_words is not None:
+        predicates.append("a.word_count >= ?")
+        params.append(max(0, int(min_article_words)))
+    if fetched_after:
+        predicates.append("a.fetched_at >= ?")
+        params.append(fetched_after)
+    where = "WHERE " + " AND ".join(predicates) if predicates else ""
 
     params.append(int(top_k) * 5)
     sql = f"""
@@ -25,6 +33,8 @@ def search(question, top_k=TOP_K, category=None):
             a.title,
             a.wiki_url,
             a.category,
+            a.word_count AS article_word_count,
+            a.fetched_at,
             c.content,
             VEC_DISTANCE_COSINE(
                 c.embedding,

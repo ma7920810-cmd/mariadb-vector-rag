@@ -1,0 +1,16 @@
+[
+  {"id":"vector-search","question":"What is vector search and how does it find similar items?","category":"information-retrieval","expected_titles":["Vector space model","Nearest neighbor search"],"key_points":["vectors","similarity","distance"]},
+  {"id":"hnsw","question":"How does an HNSW index help with nearest-neighbor search?","category":"information-retrieval","expected_titles":["Hierarchical navigable small world","Nearest neighbor search"],"key_points":["graph","approximate","neighbors"]},
+  {"id":"rag","question":"What are the main stages of retrieval-augmented generation?","category":"information-retrieval","expected_titles":["Retrieval-augmented generation"],"key_points":["retrieve","context","generate"]},
+  {"id":"embeddings","question":"What is a word embedding and what information does it represent?","category":"natural-language-processing","expected_titles":["Word embedding","Word2vec","Sentence embedding"],"key_points":["vector","meaning","semantic"]},
+  {"id":"transactions","question":"What guarantees do ACID database transactions provide?","category":"databases","expected_titles":["ACID","Database transaction"],"key_points":["atomicity","consistency","isolation","durability"]},
+  {"id":"indexing","question":"How does a database index make queries faster?","category":"databases","expected_titles":["Database index","B-tree"],"key_points":["lookup","search","table"]},
+  {"id":"bm25","question":"How does BM25 rank documents for a search query?","category":"information-retrieval","expected_titles":["Okapi BM25","Tf–idf"],"key_points":["term frequency","document length","relevance"]},
+  {"id":"transformer","question":"What role does self-attention play in a transformer?","category":"machine-learning","expected_titles":["Transformer (deep learning architecture)","Attention (machine learning)"],"key_points":["attention","tokens","context"]},
+  {"id":"sql-joins","question":"How do SQL joins combine rows from relational tables?","category":"databases","expected_titles":["Join (SQL)","Relational database"],"key_points":["tables","related","rows"]},
+  {"id":"semantic-search","question":"How is semantic search different from matching exact keywords?","category":"information-retrieval","expected_titles":["Semantic search","Information retrieval"],"key_points":["meaning","intent","similarity"]},
+  {"id":"normalization","question":"Why is database normalization used?","category":"databases","expected_titles":["Database normalization","Relational database"],"key_points":["redundancy","integrity","tables"]},
+  {"id":"overfitting","question":"What is overfitting in machine learning and how can it affect a model?","category":"machine-learning","expected_titles":["Overfitting","Machine learning"],"key_points":["training","generalization","data"]},
+  {"id":"cosine","question":"How does cosine similarity compare two vectors?","category":"information-retrieval","expected_titles":["Cosine similarity","Vector space model"],"key_points":["angle","vectors","similarity"]},
+  {"id":"hash-table","question":"How does a hash table use a hash function to store and find data?","category":"computer-science","expected_titles":["Hash table","Hash function"],"key_points":["key","bucket","hash"]}
+]
