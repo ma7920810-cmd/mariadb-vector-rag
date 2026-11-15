@@ -306,6 +306,15 @@ SHOW CREATE TABLE chunks;
 SELECT category, COUNT(*) AS article_count FROM articles GROUP BY category;
 ```
 
+For a runnable, parameterized native-vector SQL walkthrough, use:
+
+```bash
+python -m src.sql_demo
+python -m src.sql_demo --question "What is vector search?" --category databases --min-words 500
+```
+
+The demonstration prints corpus counts, the `embedding` index metadata, the actual `EXPLAIN` plan, and ranked results from a `JOIN` with category and minimum-word-count predicates. A vector index exists in the schema, but the optimizer may choose a full scan for filtered queries; the displayed plan is the evidence. Query vectors are computed from the real embedding model, not fabricated examples.
+
 For the combined semantic and relational query, see `src/search.py`: the application binds the 384-dimensional query vector and optional category, word-count and ingestion-date predicates as parameters, joins `chunks` to `articles`, orders by `VEC_DISTANCE_COSINE`, and limits results. To inspect its execution plan, use `EXPLAIN` with an actual query vector produced by `src.embeddings.embed_query`; do not substitute a made-up short vector for a 384-dimensional embedding. The ingestion-date filter refers to local fetch time, **not** the Wikipedia article's edit time.
 
 ## Security boundaries
