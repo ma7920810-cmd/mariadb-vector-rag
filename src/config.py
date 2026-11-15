@@ -17,11 +17,10 @@ EMBEDDING_MODEL = os.getenv(
 # Must match VECTOR(384) in sql/001_schema.sql.
 EMBEDDING_DIM = int(os.getenv("EMBEDDING_DIM", "384"))
 
-# all-MiniLM-L6-v2 truncates input after 256 word pieces (~190 English words),
-# so chunks larger than this are only partially embedded. 160 words plus the
-# "Title — Section:" prefix stays under the limit for typical Wikipedia prose.
-CHUNK_WORDS = int(os.getenv("CHUNK_WORDS", "160"))
-CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "30"))
+# all-MiniLM-L6-v2 truncates at 256 word pieces. The evaluated 120-word
+# chunks with 20-word overlap reduce truncation even with title/section prefixes.
+CHUNK_WORDS = int(os.getenv("CHUNK_WORDS", "120"))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "20"))
 MIN_CHUNK_WORDS = int(os.getenv("MIN_CHUNK_WORDS", "30"))
 TOP_K = int(os.getenv("TOP_K", "5"))
 
