@@ -1,3 +1,5 @@
+A project for area 4, "Vector search and RAG, natively" for the [MariaDB student database projects, 2026-09](https://mariadb.org/bachelor_hackathon_2026-09/).
+
 # Native Vector Search and RAG with MariaDB
 
 **Constructor University — Database Systems Project, Area 4**
@@ -103,13 +105,19 @@ git clone https://github.com/ma7920810-cmd/mariadb-vector-rag.git
 cd mariadb-vector-rag
 ```
 
-### 2. Start MariaDB
+### 2. Configure environment and start MariaDB
+
+Copy the example environment file **before** starting Docker and replace both password placeholders with strong, distinct local passwords:
 
 ```bash
+cp .env.example .env
+# Edit .env: set MARIADB_ROOT_PASSWORD and MARIADB_PASSWORD
+# Then start the database:
 docker compose up -d
+docker compose ps
 ```
 
-Wait until the database container is healthy.
+Wait until the database container reports healthy. MariaDB binds only to `127.0.0.1` by default, so it is not exposed to other devices on your network. This is a local development setup, not a production deployment. **Do not commit `.env`.**
 
 ### 3. Configure Python
 
@@ -119,13 +127,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Configure environment variables
+### 4. Check environment configuration
 
-```bash
-cp .env.example .env
-```
-
-Edit `.env` with your MariaDB connection settings and other configuration values.
+Ensure `.env` contains the same database username, database name and password used by Docker Compose. Do not change these values on an existing populated Docker volume without migrating the corresponding MariaDB accounts; Docker initialization variables are applied only when the data directory is first initialized.
 
 ### 5. Start Ollama
 
@@ -138,16 +142,10 @@ ollama pull llama3.2:3b
 Make sure the Ollama service is running.
 
 ### 6. Initialize and populate the database
-Start MariaDB using Docker Compose. The schema in sql/001_schema.sql is automatically executed when the database volume is initialized for the first time.
 
-docker compose up -d
-docker compose ps
+The SQL schema in `sql/001_schema.sql` and metadata migration in `sql/002_ingestion_metadata.sql` execute automatically **only on a fresh database volume**. Do not delete an existing volume to rerun initialization: that destroys stored data. For older volumes, `python -m src.ingest` detects and applies the additive metadata migration.
 
-Wait until the MariaDB container reports that it is healthy.
-
-If you are using an existing database volume, the initialization scripts will not run again automatically. `python -m src.ingest` detects a database created before `sql/002_ingestion_metadata.sql` existed and applies that (additive) migration itself.
-
-If your `.env` was copied from an older `.env.example`, update `CHUNK_WORDS=160` and `CHUNK_OVERLAP=30` (see [Ingestion](#ingestion)).
+If upgrading an older installation, review `CHUNK_WORDS=160` and `CHUNK_OVERLAP=30` in `.env` before ingesting.
 
 Ingest the Wikipedia articles:
 
@@ -257,6 +255,9 @@ Using `benchmark.py` across a dataset of ~102 ingested Wikipedia articles (20 qu
 2. Run the benchmark script:
    ```bash
    python3 benchmark.py
+   ```
+
+The reported 1.39 ms indexed and 8.58 ms full-scan averages were measured on one query repeated 20 times; they are illustrative, not a general performance guarantee. The benchmark does not measure HNSW recall against exact nearest neighbors. Reproduce on your own machine before drawing conclusions.
 
 ## Team Contributions
 
@@ -273,3 +274,36 @@ This project is licensed under the MIT License.
 See the [LICENSE](LICENSE) file for details.
 
 
+
+## Database Design and Trade-offs
+
+The `articles` table holds source metadata (Wikipedia page ID, title, URL, category, word count and ingestion timestamp). The `chunks` table holds ordered text passages, section labels and 384-dimensional embeddings. A foreign key `chunks.article_id -> articles.id` with `ON DELETE CASCADE` prevents orphan passages; article upserts and chunk replacement commit in one transaction. The vector index uses HNSW with cosine distance and `M=6`; the sentence-transformers `all-MiniLM-L6-v2` model produces the matching 384 dimensions. Chunks default to 160 words with 30-word overlap to preserve context while limiting model input truncation.
+
+**Why MariaDB rather than a separate vector service?** One SQL query combines semantic ranking, metadata predicates and a relational join. The metadata and vectors participate in the same transactional database, avoiding a separate synchronization pipeline. This does **not** mean every combination of filters automatically uses the HNSW index: inspect `EXPLAIN` for the query shape and data distribution.
+
+## Reproducible SQL walkthrough
+
+After ingestion, connect using your local credentials (do not paste passwords into shell history):
+
+```bash
+docker exec -it vector-rag-mariadb mariadb -u rag_user -p vector_rag
+```
+
+Inspect the corpus and index:
+
+```sql
+SELECT COUNT(*) AS articles FROM articles;
+SELECT COUNT(*) AS chunks FROM chunks;
+SHOW CREATE TABLE chunks;
+SELECT category, COUNT(*) AS article_count FROM articles GROUP BY category;
+```
+
+For the combined semantic and relational query, see `src/search.py`: the application binds the 384-dimensional query vector and optional category, word-count and ingestion-date predicates as parameters, joins `chunks` to `articles`, orders by `VEC_DISTANCE_COSINE`, and limits results. To inspect its execution plan, use `EXPLAIN` with an actual query vector produced by `src.embeddings.embed_query`; do not substitute a made-up short vector for a 384-dimensional embedding. The ingestion-date filter refers to local fetch time, **not** the Wikipedia article's edit time.
+
+## Evaluation and reproducibility notes
+
+The evaluation dataset has 14 questions. Run `python evaluate.py --retrieval-only` and `python evaluate.py` after ingesting. Publish measured metrics with the database article/chunk counts, machine specifications, MariaDB version, embedding model, Ollama model, and warm/cold-run conditions. Do not treat literal key-point matches or valid citation numbers as proof of factual grounding. The benchmark figures above are historical reported results, not independently reproduced here.
+
+## Security boundaries
+
+This example is designed for trusted local use. Docker binds the database port to loopback, and passwords must be set in a private `.env` file. Do not expose the database or Ollama to the public internet. Retrieved Wikipedia text is third-party content and must not be treated as instructions to the language model; generated answers and their citations should be checked before being relied on. The application has not been security-audited for public multi-user deployment.
