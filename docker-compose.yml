@@ -4,12 +4,12 @@ services:
     container_name: vector-rag-mariadb
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-root-dev-password}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?Set MARIADB_ROOT_PASSWORD in .env}
       MARIADB_DATABASE: ${MARIADB_DATABASE:-vector_rag}
       MARIADB_USER: ${MARIADB_USER:-rag_user}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-rag-dev-password}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?Set MARIADB_PASSWORD in .env}
     ports:
-      - "${MARIADB_PORT:-3306}:3306"
+      - "127.0.0.1:${MARIADB_PORT:-3306}:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./sql/001_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
