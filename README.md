@@ -263,7 +263,70 @@ python benchmark.py --iterations 30 --warmup 3 --limit 5 --k 5 --output reports/
 The benchmark uses unique questions from `data/evaluation.json`, precomputes embeddings (excluded from SQL timing), warms both methods, randomly interleaves indexed and full-scan queries with a fixed seed, and reports mean, median and p95 SQL latency. It compares HNSW top-k chunk IDs with exact-scan top-k IDs to measure **recall@k against exact neighbors**, and writes the two `EXPLAIN` plans, configuration, corpus size, MariaDB version, and per-question results to JSON. The index choice must be verified from `EXPLAIN` rather than assumed. Approximate-neighbor recall is distinct from answer relevance or RAG correctness.
 
 **For a credible report:** run the benchmark on the same populated database used in your demo, include hardware specifications and the generated JSON, and distinguish the old illustrative timings from the new measurements. Do not claim a new speedup until the script has actually run.
+## Final Experimental Results — November 2026
 
+The system was evaluated using MariaDB 11.8, `all-MiniLM-L6-v2` embeddings, and the local Ollama `llama3.2:3b` model.
+
+### Dataset and Configuration
+
+- **Corpus:** 71 Wikipedia articles across five categories.
+- **Stored chunks:** 2,706.
+- **Chunk configuration:** 120 words with 20-word overlap.
+- **Embedding dimension:** 384.
+- **Evaluation dataset:** 14 questions.
+- **Automated tests:** 37 passed.
+
+### Retrieval and RAG Evaluation
+
+| Metric | Result |
+|---|---:|
+| Precision@5 | 0.5702 |
+| Recall@5 | 0.9286 |
+| MRR@5 | 0.9286 |
+| nDCG@5 | 0.8845 |
+| Answer key-point coverage | 0.8095 |
+| Citation presence | 0.9286 |
+| Citation validity | 0.9286 |
+| Evaluation failure rate | 0% |
+| Mean end-to-end latency | 3,061.03 ms |
+
+Citation validity measures whether recognized citation numbers refer to available retrieved sources. It does not establish that the cited passages factually support each claim.
+
+### Native HNSW Benchmark
+
+The benchmark compared indexed vector queries against exact scans using `IGNORE INDEX (embedding)`.
+
+| Metric | HNSW indexed | Exact scan |
+|---|---:|---:|
+| Mean query latency | 1.101 ms | 217.391 ms |
+| Median query latency | 1.069 ms | 217.440 ms |
+| P95 query latency | 1.409 ms | 221.450 ms |
+
+**Measured mean speedup: 197.42×**
+
+**Recall@5 against exact search: 100%** across 14 benchmark queries.
+
+MariaDB `EXPLAIN` confirmed that the indexed query selected the `embedding` index, while the exact query used a full scan.
+
+These results describe the tested local configuration and corpus, not guaranteed performance on larger datasets or different hardware.
+
+### Reproducibility
+
+Detailed evaluation and benchmark results are provided in the `reports/` directory:
+
+- `evaluation-baseline.json`
+- `evaluation-optimized-retrieval.json`
+- `evaluation-optimized-full.json`
+- `evaluation-final.json`
+- `hnsw-benchmark.json`
+
+Run the evaluations with:
+
+```bash
+python evaluate.py
+python benchmark.py --iterations 10 --warmup 2 --k 5
+python -m unittest discover -s tests -v
+```
 ## Team Contributions
 
 The project is divided into four areas:
