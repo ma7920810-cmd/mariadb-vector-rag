@@ -251,13 +251,18 @@ Using `benchmark.py` across a dataset of ~102 ingested Wikipedia articles (20 qu
 | **Without Index (Full Scan)** | `0.1716 s` | `8.58 ms` | Baseline (1.0x) |
 
 ### Running the Benchmark
-1. Ensure data has been ingested into the database (e.g., `python3 -m src.ingest`).
-2. Run the benchmark script:
-   ```bash
-   python3 benchmark.py
-   ```
 
-The reported 1.39 ms indexed and 8.58 ms full-scan averages were measured on one query repeated 20 times; they are illustrative, not a general performance guarantee. The benchmark does not measure HNSW recall against exact nearest neighbors. Reproduce on your own machine before drawing conclusions.
+The previous single-question, 20-iteration figures above are historical measurements. The current benchmark script performs a stronger, reproducible comparison against the exact full scan:
+
+```bash
+python benchmark.py
+# Optional: more repeats, first five evaluation questions, custom report
+python benchmark.py --iterations 30 --warmup 3 --limit 5 --k 5 --output reports/hnsw-30.json
+```
+
+The benchmark uses unique questions from `data/evaluation.json`, precomputes embeddings (excluded from SQL timing), warms both methods, randomly interleaves indexed and full-scan queries with a fixed seed, and reports mean, median and p95 SQL latency. It compares HNSW top-k chunk IDs with exact-scan top-k IDs to measure **recall@k against exact neighbors**, and writes the two `EXPLAIN` plans, configuration, corpus size, MariaDB version, and per-question results to JSON. The index choice must be verified from `EXPLAIN` rather than assumed. Approximate-neighbor recall is distinct from answer relevance or RAG correctness.
+
+**For a credible report:** run the benchmark on the same populated database used in your demo, include hardware specifications and the generated JSON, and distinguish the old illustrative timings from the new measurements. Do not claim a new speedup until the script has actually run.
 
 ## Team Contributions
 
