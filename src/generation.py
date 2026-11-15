@@ -39,9 +39,10 @@ STRICT INSTRUCTIONS:
 5. Explain processes only when the sources describe them.
 6. Every paragraph containing factual information MUST include citations.
 7. Use citations in the format [Source 1] or [Source 2].
-8. Cite only passages that support the statements.
-9. Never repeat the same information.
-10. Do not include historical background unless explicitly requested.
+8. Citations must use exactly [Source N], where N is the number of a supplied passage. Do not use [1], "Source 1", "Sources 1 and 2", or any other citation notation. Check every factual paragraph for a valid citation before finishing.
+9. Cite only passages that support the statements.
+10. Never repeat the same information.
+11. Do not include historical background unless explicitly requested.
 11. Finish with a complete sentence.
 
 If the sources do not contain enough information, clearly state what is missing.
@@ -90,10 +91,37 @@ Write the answer now:
 
     valid_sources = set(range(1, len(passages) + 1))
 
+    # Normalize explicit source references into one consistent format.
+    # This does not add citations to claims that lack source references.
+    answer = re.sub(
+        r"\(\s*Source\s+(\d+)\s*\)",
+        r"[Source \1]",
+        answer,
+        flags=re.IGNORECASE,
+    )
+
+
+
+    answer = re.sub(
+        r"\[\s*(\d+)\s*\]",
+        r"[Source \1]",
+        answer,
+    )
+
     def validate_citation(match):
         source_number = int(match.group(1))
-        return match.group(0) if source_number in valid_sources else ""
 
-    answer = re.sub(r"\[Source (\d+)\]", validate_citation, answer)
+        if source_number in valid_sources:
+            return f"[Source {source_number}]"
+
+
+        return ""
+
+    answer = re.sub(
+        r"\[Source\s+(\d+)\]",
+        validate_citation,
+        answer,
+        flags=re.IGNORECASE,
+    )
 
     return answer

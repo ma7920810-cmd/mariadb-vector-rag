@@ -1,0 +1,515 @@
+{
+  "timestamp_utc": "2026-11-15T10:36:15.210375+00:00",
+  "configuration": {
+    "dataset": "data/evaluation.json",
+    "question_count": 14,
+    "iterations_per_question_per_method": 10,
+    "warmup_per_question_per_method": 2,
+    "k": 5,
+    "random_seed": 42,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "mariadb_version": "11.8.9-MariaDB-ubu2404",
+    "article_count": 71,
+    "chunk_count": 2706,
+    "timing_scope": "database SQL execute and fetchall; excludes embedding generation",
+    "reference": "full scan with IGNORE INDEX (embedding)"
+  },
+  "summary": {
+    "indexed": {
+      "mean_ms": 1.101,
+      "median_ms": 1.069,
+      "p95_ms": 1.409,
+      "min_ms": 0.834,
+      "max_ms": 1.583
+    },
+    "exact": {
+      "mean_ms": 217.391,
+      "median_ms": 217.44,
+      "p95_ms": 221.45,
+      "min_ms": 209.089,
+      "max_ms": 224.471
+    },
+    "speedup_mean": 197.421,
+    "mean_recall_at_k_vs_exact": 1.0
+  },
+  "explain": {
+    "indexed": [
+      [
+        "1",
+        "SIMPLE",
+        "c",
+        "index",
+        "None",
+        "embedding",
+        "1538",
+        "None",
+        "5",
+        ""
+      ]
+    ],
+    "exact": [
+      [
+        "1",
+        "SIMPLE",
+        "c",
+        "ALL",
+        "None",
+        "None",
+        "None",
+        "None",
+        "2274",
+        "Using filesort"
+      ]
+    ]
+  },
+  "per_question": [
+    {
+      "question": "What is vector search and how does it find similar items?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.129,
+        "median_ms": 1.115,
+        "p95_ms": 1.32,
+        "min_ms": 0.948,
+        "max_ms": 1.32
+      },
+      "exact": {
+        "mean_ms": 218.049,
+        "median_ms": 217.982,
+        "p95_ms": 224.328,
+        "min_ms": 211.927,
+        "max_ms": 224.328
+      },
+      "indexed_ids": [
+        3169,
+        3172,
+        3171,
+        3420,
+        3170
+      ],
+      "exact_ids": [
+        3169,
+        3172,
+        3171,
+        3420,
+        3170
+      ]
+    },
+    {
+      "question": "How does an HNSW index help with nearest-neighbor search?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.101,
+        "median_ms": 1.043,
+        "p95_ms": 1.563,
+        "min_ms": 0.834,
+        "max_ms": 1.563
+      },
+      "exact": {
+        "mean_ms": 218.682,
+        "median_ms": 218.709,
+        "p95_ms": 220.114,
+        "min_ms": 216.904,
+        "max_ms": 220.114
+      },
+      "indexed_ids": [
+        3589,
+        3597,
+        3590,
+        3598,
+        3591
+      ],
+      "exact_ids": [
+        3589,
+        3597,
+        3590,
+        3598,
+        3591
+      ]
+    },
+    {
+      "question": "What are the main stages of retrieval-augmented generation?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.068,
+        "median_ms": 1.095,
+        "p95_ms": 1.252,
+        "min_ms": 0.883,
+        "max_ms": 1.252
+      },
+      "exact": {
+        "mean_ms": 217.524,
+        "median_ms": 216.989,
+        "p95_ms": 219.063,
+        "min_ms": 216.434,
+        "max_ms": 219.063
+      },
+      "indexed_ids": [
+        3706,
+        3709,
+        3708,
+        3719,
+        5544
+      ],
+      "exact_ids": [
+        3706,
+        3709,
+        3708,
+        3719,
+        5544
+      ]
+    },
+    {
+      "question": "What is a word embedding and what information does it represent?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.101,
+        "median_ms": 1.067,
+        "p95_ms": 1.342,
+        "min_ms": 0.857,
+        "max_ms": 1.342
+      },
+      "exact": {
+        "mean_ms": 218.511,
+        "median_ms": 218.317,
+        "p95_ms": 222.497,
+        "min_ms": 216.708,
+        "max_ms": 222.497
+      },
+      "indexed_ids": [
+        5372,
+        5376,
+        5377,
+        5386,
+        5450
+      ],
+      "exact_ids": [
+        5372,
+        5376,
+        5377,
+        5386,
+        5450
+      ]
+    },
+    {
+      "question": "What guarantees do ACID database transactions provide?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.064,
+        "median_ms": 1.048,
+        "p95_ms": 1.427,
+        "min_ms": 0.87,
+        "max_ms": 1.427
+      },
+      "exact": {
+        "mean_ms": 217.057,
+        "median_ms": 216.787,
+        "p95_ms": 219.638,
+        "min_ms": 215.616,
+        "max_ms": 219.638
+      },
+      "indexed_ids": [
+        2891,
+        2883,
+        2384,
+        2892,
+        3115
+      ],
+      "exact_ids": [
+        2891,
+        2883,
+        2384,
+        2892,
+        3115
+      ]
+    },
+    {
+      "question": "How does a database index make queries faster?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.08,
+        "median_ms": 1.078,
+        "p95_ms": 1.232,
+        "min_ms": 0.937,
+        "max_ms": 1.232
+      },
+      "exact": {
+        "mean_ms": 218.199,
+        "median_ms": 218.992,
+        "p95_ms": 222.316,
+        "min_ms": 213.9,
+        "max_ms": 222.316
+      },
+      "indexed_ids": [
+        2723,
+        2463,
+        3304,
+        2726,
+        2724
+      ],
+      "exact_ids": [
+        2723,
+        2463,
+        3304,
+        2726,
+        2724
+      ]
+    },
+    {
+      "question": "How does BM25 rank documents for a search query?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.096,
+        "median_ms": 1.045,
+        "p95_ms": 1.412,
+        "min_ms": 0.895,
+        "max_ms": 1.412
+      },
+      "exact": {
+        "mean_ms": 216.459,
+        "median_ms": 216.308,
+        "p95_ms": 224.471,
+        "min_ms": 211.846,
+        "max_ms": 224.471
+      },
+      "indexed_ids": [
+        3673,
+        3404,
+        3405,
+        3403,
+        3411
+      ],
+      "exact_ids": [
+        3673,
+        3404,
+        3405,
+        3403,
+        3411
+      ]
+    },
+    {
+      "question": "What role does self-attention play in a transformer?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.069,
+        "median_ms": 1.067,
+        "p95_ms": 1.207,
+        "min_ms": 0.923,
+        "max_ms": 1.207
+      },
+      "exact": {
+        "mean_ms": 217.678,
+        "median_ms": 217.249,
+        "p95_ms": 219.929,
+        "min_ms": 216.279,
+        "max_ms": 219.929
+      },
+      "indexed_ids": [
+        4884,
+        5018,
+        4927,
+        4913,
+        4926
+      ],
+      "exact_ids": [
+        4884,
+        5018,
+        4927,
+        4913,
+        4926
+      ]
+    },
+    {
+      "question": "How do SQL joins combine rows from relational tables?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.184,
+        "median_ms": 1.148,
+        "p95_ms": 1.583,
+        "min_ms": 0.884,
+        "max_ms": 1.583
+      },
+      "exact": {
+        "mean_ms": 219.007,
+        "median_ms": 218.308,
+        "p95_ms": 222.059,
+        "min_ms": 217.251,
+        "max_ms": 222.059
+      },
+      "indexed_ids": [
+        2981,
+        2984,
+        2513,
+        2985,
+        2983
+      ],
+      "exact_ids": [
+        2981,
+        2984,
+        2513,
+        2985,
+        2983
+      ]
+    },
+    {
+      "question": "How is semantic search different from matching exact keywords?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.105,
+        "median_ms": 1.102,
+        "p95_ms": 1.389,
+        "min_ms": 0.951,
+        "max_ms": 1.389
+      },
+      "exact": {
+        "mean_ms": 219.147,
+        "median_ms": 219.13,
+        "p95_ms": 222.32,
+        "min_ms": 216.7,
+        "max_ms": 222.32
+      },
+      "indexed_ids": [
+        3604,
+        3605,
+        3606,
+        3716,
+        3259
+      ],
+      "exact_ids": [
+        3604,
+        3605,
+        3606,
+        3716,
+        3259
+      ]
+    },
+    {
+      "question": "Why is database normalization used?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.122,
+        "median_ms": 1.13,
+        "p95_ms": 1.416,
+        "min_ms": 0.855,
+        "max_ms": 1.416
+      },
+      "exact": {
+        "mean_ms": 216.588,
+        "median_ms": 216.64,
+        "p95_ms": 218.601,
+        "min_ms": 214.086,
+        "max_ms": 218.601
+      },
+      "indexed_ids": [
+        2919,
+        2469,
+        2925,
+        2928,
+        2929
+      ],
+      "exact_ids": [
+        2919,
+        2469,
+        2925,
+        2928,
+        2929
+      ]
+    },
+    {
+      "question": "What is overfitting in machine learning and how can it affect a model?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.16,
+        "median_ms": 1.149,
+        "p95_ms": 1.547,
+        "min_ms": 0.844,
+        "max_ms": 1.547
+      },
+      "exact": {
+        "mean_ms": 214.428,
+        "median_ms": 213.202,
+        "p95_ms": 219.617,
+        "min_ms": 211.297,
+        "max_ms": 219.617
+      },
+      "indexed_ids": [
+        3906,
+        4441,
+        4460,
+        4450,
+        4443
+      ],
+      "exact_ids": [
+        3906,
+        4441,
+        4460,
+        4450,
+        4443
+      ]
+    },
+    {
+      "question": "How does cosine similarity compare two vectors?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.066,
+        "median_ms": 1.034,
+        "p95_ms": 1.258,
+        "min_ms": 0.894,
+        "max_ms": 1.258
+      },
+      "exact": {
+        "mean_ms": 214.225,
+        "median_ms": 214.66,
+        "p95_ms": 220.69,
+        "min_ms": 209.089,
+        "max_ms": 220.69
+      },
+      "indexed_ids": [
+        3433,
+        3436,
+        3440,
+        3444,
+        3447
+      ],
+      "exact_ids": [
+        3433,
+        3436,
+        3440,
+        3444,
+        3447
+      ]
+    },
+    {
+      "question": "How does a hash table use a hash function to store and find data?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.071,
+        "median_ms": 1.035,
+        "p95_ms": 1.356,
+        "min_ms": 0.861,
+        "max_ms": 1.356
+      },
+      "exact": {
+        "mean_ms": 217.922,
+        "median_ms": 217.263,
+        "p95_ms": 221.163,
+        "min_ms": 216.298,
+        "max_ms": 221.163
+      },
+      "indexed_ids": [
+        6111,
+        6105,
+        6114,
+        6232,
+        6108
+      ],
+      "exact_ids": [
+        6111,
+        6105,
+        6114,
+        6232,
+        6108
+      ]
+    }
+  ]
+}

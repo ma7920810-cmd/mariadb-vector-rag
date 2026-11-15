@@ -1,0 +1,290 @@
+{
+  "summary": {
+    "cases": 14,
+    "successful": 14,
+    "failure_rate": 0.0,
+    "retrieval_metrics": {
+      "precision@5": 0.5702,
+      "recall@5": 0.9286,
+      "mrr@5": 0.9286,
+      "ndcg@5": 0.8845
+    },
+    "retrieval_latency": {
+      "mean_ms": 35.48,
+      "median_ms": 35.08,
+      "p95_ms": 97.66
+    },
+    "total_latency": {
+      "mean_ms": 131.95,
+      "median_ms": 40.41,
+      "p95_ms": 1279.02
+    }
+  },
+  "results": [
+    {
+      "id": "vector-search",
+      "question": "What is vector search and how does it find similar items?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.8503449055347546,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 35.81,
+      "retrieved_titles": [
+        "Vector space model",
+        "Retrieval-augmented generation",
+        "Learning to rank",
+        "Hierarchical navigable small world",
+        "Nearest neighbor search"
+      ],
+      "total_ms": 1279.02
+    },
+    {
+      "id": "hnsw",
+      "question": "How does an HNSW index help with nearest-neighbor search?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 39.17,
+      "retrieved_titles": [
+        "Hierarchical navigable small world",
+        "Hierarchical navigable small world",
+        "Nearest neighbor search",
+        "Nearest neighbor search",
+        "Locality-sensitive hashing"
+      ],
+      "total_ms": 74.68
+    },
+    {
+      "id": "rag",
+      "question": "What are the main stages of retrieval-augmented generation?",
+      "ok": true,
+      "precision@5": 0.3333333333333333,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 33.76,
+      "retrieved_titles": [
+        "Retrieval-augmented generation",
+        "Retrieval-augmented generation",
+        "Information retrieval",
+        "Information retrieval",
+        "Okapi BM25"
+      ],
+      "total_ms": 38.93
+    },
+    {
+      "id": "embeddings",
+      "question": "What is a word embedding and what information does it represent?",
+      "ok": true,
+      "precision@5": 0.75,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 3,
+      "retrieval_ms": 31.82,
+      "retrieved_titles": [
+        "Word embedding",
+        "Word embedding",
+        "Sentence embedding",
+        "Word2Vec",
+        "BERT (language model)"
+      ],
+      "total_ms": 37.21
+    },
+    {
+      "id": "transactions",
+      "question": "What guarantees do ACID database transactions provide?",
+      "ok": true,
+      "precision@5": 0.5,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 14.83,
+      "retrieved_titles": [
+        "ACID",
+        "Database transaction",
+        "Database",
+        "ACID",
+        "Concurrency control"
+      ],
+      "total_ms": 19.88
+    },
+    {
+      "id": "indexing",
+      "question": "How does a database index make queries faster?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.45,
+      "retrieved_titles": [
+        "Database index",
+        "Relational database",
+        "Database index",
+        "Relational database",
+        "B-tree"
+      ],
+      "total_ms": 13.09
+    },
+    {
+      "id": "bm25",
+      "question": "How does BM25 rank documents for a search query?",
+      "ok": true,
+      "precision@5": 0.3333333333333333,
+      "recall@5": 0.5,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.38685280723454163,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 34.73,
+      "retrieved_titles": [
+        "Learning to rank",
+        "Okapi BM25",
+        "Okapi BM25",
+        "Learning to rank",
+        "Search engine indexing"
+      ],
+      "total_ms": 40.19
+    },
+    {
+      "id": "transformer",
+      "question": "What role does self-attention play in a transformer?",
+      "ok": true,
+      "precision@5": 0.5,
+      "recall@5": 0.5,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.38685280723454163,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 74.86,
+      "retrieved_titles": [
+        "Transformer (deep learning)",
+        "Attention (machine learning)",
+        "Transformer (deep learning)",
+        "Attention (machine learning)"
+      ],
+      "total_ms": 80.16
+    },
+    {
+      "id": "sql-joins",
+      "question": "How do SQL joins combine rows from relational tables?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 6.9,
+      "retrieved_titles": [
+        "Join (SQL)",
+        "Join (SQL)",
+        "Relational model",
+        "Relational database",
+        "Relational model"
+      ],
+      "total_ms": 12.35
+    },
+    {
+      "id": "semantic-search",
+      "question": "How is semantic search different from matching exact keywords?",
+      "ok": true,
+      "precision@5": 0.5,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 35.42,
+      "retrieved_titles": [
+        "Semantic search",
+        "Semantic search",
+        "Retrieval-augmented generation",
+        "Information retrieval",
+        "Search engine indexing"
+      ],
+      "total_ms": 40.64
+    },
+    {
+      "id": "normalization",
+      "question": "Why is database normalization used?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 6.51,
+      "retrieved_titles": [
+        "Database normalization",
+        "Relational database",
+        "Database normalization",
+        "Database",
+        "Database"
+      ],
+      "total_ms": 11.6
+    },
+    {
+      "id": "overfitting",
+      "question": "What is overfitting in machine learning and how can it affect a model?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 97.66,
+      "retrieved_titles": [
+        "Machine learning",
+        "Overfitting",
+        "Overfitting",
+        "Machine learning",
+        "Neural network (machine learning)"
+      ],
+      "total_ms": 103.42
+    },
+    {
+      "id": "cosine",
+      "question": "How does cosine similarity compare two vectors?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 36.41,
+      "retrieved_titles": [
+        "Cosine similarity",
+        "Cosine similarity",
+        "Vector space model",
+        "Vector space model",
+        "Locality-sensitive hashing"
+      ],
+      "total_ms": 49.04
+    },
+    {
+      "id": "hash-table",
+      "question": "How does a hash table use a hash function to store and find data?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 41.32,
+      "retrieved_titles": [
+        "Hash function",
+        "Hash function",
+        "Hash table",
+        "Hash table",
+        "Data structure"
+      ],
+      "total_ms": 47.04
+    }
+  ]
+}
