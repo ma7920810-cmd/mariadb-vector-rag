@@ -145,7 +145,7 @@ Make sure the Ollama service is running.
 
 The SQL schema in `sql/001_schema.sql` and metadata migration in `sql/002_ingestion_metadata.sql` execute automatically **only on a fresh database volume**. Do not delete an existing volume to rerun initialization: that destroys stored data. For older volumes, `python -m src.ingest` detects and applies the additive metadata migration.
 
-If upgrading an older installation, review `CHUNK_WORDS=160` and `CHUNK_OVERLAP=30` in `.env` before ingesting.
+For the evaluated configuration, set `CHUNK_WORDS=120` and `CHUNK_OVERLAP=20` in `.env` before ingestion. Changing either setting triggers re-chunking and re-embedding on the next ingestion run.
 
 Ingest the Wikipedia articles:
 
@@ -172,7 +172,7 @@ How it works:
 1. **Resolve** all titles in batches of 50 (`action=query`), following redirects. Missing pages, disambiguation pages and stubs are skipped, and titles that resolve to the same page id are ingested once.
 2. **Skip unchanged** articles: the stored `rev_id` and `ingest_signature` (chunker version + chunk settings + embedding model) are compared first, so a re-run only downloads pages that changed on Wikipedia or need re-chunking.
 3. **Fetch and clean** the article HTML (`action=parse`). Section headings are kept. References, "See also", infoboxes, navboxes, hatnotes and citation markers are removed, and math is replaced with its TeX alt text.
-4. **Chunk** within sections at sentence boundaries (default 160 words, ~30 words of whole-sentence overlap). Each chunk is embedded as `"Title — Section: text"` so short passages keep their context. `chunks.content` stores the plain text.
+4. **Chunk** within sections at sentence boundaries (evaluated setting 120 words, 20 words of whole-sentence overlap). Each chunk is embedded as `"Title — Section: text"` so short passages keep their context. `chunks.content` stores the plain text.
 5. **Deduplicate**: repeated chunks inside an article and chunks whose text already exists under another article are dropped (`chunks.content_hash`).
 6. **Write** the article upsert and the chunk replacement in one transaction (keyed on the unique `wiki_page_id`), so a failure never leaves an article half-ingested. One failing page does not stop the run, and the run ends with a summary.
 
@@ -219,67 +219,27 @@ python evaluate.py --k 10 --output reports/run-1
 
 Run metric and SQL-filter unit tests with `python -m unittest tests.test_evaluation -v`. Retrieval relevance uses expected article titles at article level. Key-point coverage is a literal phrase-match proxy, not a semantic judge, and citation checks verify citation format/index range, not whether a cited passage supports each claim. Human review is needed for answer relevance and factual support. Latency depends on model warm-up, hardware, and database state; report those conditions with results. The first run can be slower while the embedding model initializes. Generation latency is primarily local Ollama/model performance.
 
-## Current Corpus
+## Corpus
 
-`data/corpus.json` lists about 70 English Wikipedia articles in five categories chosen to match the project topic: databases (including MariaDB, indexing and transactions), information retrieval and vector search (BM25, nearest-neighbour search, HNSW, RAG), machine learning, natural language processing and embeddings, and computer-science fundamentals. The original ten articles are all included. To grow the corpus, add titles to the file and re-run `python -m src.ingest`.
+The curated dataset contains 71 English Wikipedia articles in five categories: databases, information retrieval, machine learning, natural-language processing, and computer science. See `data/corpus.json` and `docs/DATASET.md` for the article list and ingestion approach.
 
-## Current Limitations and Future Work
+## Limitations
 
-- Citation validation checks source-number references, not the factual support of every claim.
-- Ground-truth title relevance should be independently reviewed and expanded as the corpus and use cases grow.
-- Article link relationships are not ingested, so link-based filters are not available.
-- Hybrid lexical and vector retrieval can be explored.
-- GPU acceleration and embedding optimization are future improvements.
-- Article quality classes (WikiProject assessments) could be stored and used to weight retrieval.
+- The curated 14-question evaluation is small; expected article titles and answer key points need independent review.
+- Citation checks validate formatting and source indices, not factual entailment; Ollama can still omit citations or produce incomplete explanations.
+- Wikipedia link relationships are not stored, and date filters use ingestion time rather than Wikipedia edit time.
+- Hybrid lexical-vector retrieval and larger-corpus benchmarks remain future work.
 
-## Vector Search Performance & Benchmarking
+## Measured Results (November 2026)
 
-### HNSW Index Architecture
-Semantic search queries use MariaDB's native `VECTOR(384)` data type paired with an **HNSW (Hierarchical Navigable Small World)** vector index (`DISTANCE=cosine`) on `chunks.embedding`. 
+The evaluated local corpus contained **71 Wikipedia articles**, **2,706 chunks**, and five categories. Ingestion used `CHUNK_WORDS=120` and `CHUNK_OVERLAP=20`; only three chunks exceeded the embedding model's 256-token input. All 37 automated tests passed.
 
-- **Index Validation:** Verified using `EXPLAIN`, confirming that `ORDER BY VEC_DISTANCE_COSINE(...) LIMIT N` utilizes the `embedding` index (`type: index`) rather than falling back to a full table scan (`type: ALL`).
-- **Tuning Parameters:** 
-  - **`M` (Graph Connections):** Configured with MariaDB's default (`M=6`), balancing fast index build times and low memory overhead with strong recall. Higher values (e.g., `M=16` or `32`) can be used at index creation to improve recall on larger datasets.
-  - **`mhnsw_ef_search` (Search Candidate Pool):** Defaults to `20`. Increasing this session variable (e.g., `SET SESSION mhnsw_ef_search = 100;`) expands the candidate search pool for higher precision at the cost of slightly higher query latency.
+### Retrieval and answer evaluation
 
-### Benchmark Results
-Using `benchmark.py` across a dataset of ~102 ingested Wikipedia articles (20 query iterations per test), comparing HNSW-indexed search against a forced full table scan (`IGNORE INDEX (embedding)`):
+The 14-question evaluation uses article-level relevance labels and literal answer key-point matching.
 
-| Search Method | Total Time (20 Queries) | Avg. Latency per Query | Speedup |
-| :--- | :--- | :--- | :--- |
-| **With HNSW Index** | `0.0279 s` | **`1.39 ms`** | **6.15x faster** |
-| **Without Index (Full Scan)** | `0.1716 s` | `8.58 ms` | Baseline (1.0x) |
-
-### Running the Benchmark
-
-The previous single-question, 20-iteration figures above are historical measurements. The current benchmark script performs a stronger, reproducible comparison against the exact full scan:
-
-```bash
-python benchmark.py
-# Optional: more repeats, first five evaluation questions, custom report
-python benchmark.py --iterations 30 --warmup 3 --limit 5 --k 5 --output reports/hnsw-30.json
-```
-
-The benchmark uses unique questions from `data/evaluation.json`, precomputes embeddings (excluded from SQL timing), warms both methods, randomly interleaves indexed and full-scan queries with a fixed seed, and reports mean, median and p95 SQL latency. It compares HNSW top-k chunk IDs with exact-scan top-k IDs to measure **recall@k against exact neighbors**, and writes the two `EXPLAIN` plans, configuration, corpus size, MariaDB version, and per-question results to JSON. The index choice must be verified from `EXPLAIN` rather than assumed. Approximate-neighbor recall is distinct from answer relevance or RAG correctness.
-
-**For a credible report:** run the benchmark on the same populated database used in your demo, include hardware specifications and the generated JSON, and distinguish the old illustrative timings from the new measurements. Do not claim a new speedup until the script has actually run.
-## Final Experimental Results — November 2026
-
-The system was evaluated using MariaDB 11.8, `all-MiniLM-L6-v2` embeddings, and the local Ollama `llama3.2:3b` model.
-
-### Dataset and Configuration
-
-- **Corpus:** 71 Wikipedia articles across five categories.
-- **Stored chunks:** 2,706.
-- **Chunk configuration:** 120 words with 20-word overlap.
-- **Embedding dimension:** 384.
-- **Evaluation dataset:** 14 questions.
-- **Automated tests:** 37 passed.
-
-### Retrieval and RAG Evaluation
-
-| Metric | Result |
-|---|---:|
+| Metric | Measured result |
+| --- | ---: |
 | Precision@5 | 0.5702 |
 | Recall@5 | 0.9286 |
 | MRR@5 | 0.9286 |
@@ -287,65 +247,45 @@ The system was evaluated using MariaDB 11.8, `all-MiniLM-L6-v2` embeddings, and 
 | Answer key-point coverage | 0.8095 |
 | Citation presence | 0.9286 |
 | Citation validity | 0.9286 |
-| Evaluation failure rate | 0% |
+| Failed evaluation cases | 0 / 14 |
 | Mean end-to-end latency | 3,061.03 ms |
 
-Citation validity measures whether recognized citation numbers refer to available retrieved sources. It does not establish that the cited passages factually support each claim.
+Citation validity checks recognized source-number references against the retrieved passages, **not** whether each claim is factually supported. The 14 questions are a small curated test set; the measurements should not be generalized to other corpora.
 
-### Native HNSW Benchmark
+### Native HNSW benchmark
 
-The benchmark compared indexed vector queries against exact scans using `IGNORE INDEX (embedding)`.
+`python benchmark.py --iterations 10 --warmup 2 --k 5` compared the native `embedding` vector index against exact SQL search with `IGNORE INDEX (embedding)`, using 14 unique questions.
 
-| Metric | HNSW indexed | Exact scan |
-|---|---:|---:|
-| Mean query latency | 1.101 ms | 217.391 ms |
-| Median query latency | 1.069 ms | 217.440 ms |
-| P95 query latency | 1.409 ms | 221.450 ms |
+| SQL latency | Indexed | Exact scan |
+| --- | ---: | ---: |
+| Mean | **1.101 ms** | 217.391 ms |
+| Median | 1.069 ms | 217.440 ms |
+| P95 | 1.409 ms | 221.450 ms |
 
-**Measured mean speedup: 197.42×**
+**Measured mean speedup: 197.42×.** Indexed top-five results matched exact search for all 14 queries (**recall@5 versus exact: 1.0**). `EXPLAIN` selected the `embedding` index (`type=index`) for indexed SQL and a full scan (`type=ALL`, `Using filesort`) for exact SQL. These are SQL-only timings excluding embedding and LLM generation, on the tested local machine and dataset.
 
-**Recall@5 against exact search: 100%** across 14 benchmark queries.
+The benchmark's configuration, per-question results, and query plans are recorded in `reports/hnsw-benchmark.json`. Full evaluation records are in `reports/evaluation-final.json`; historical baseline and intermediate results are also in `reports/`.
 
-MariaDB `EXPLAIN` confirmed that the indexed query selected the `embedding` index, while the exact query used a full scan.
-
-These results describe the tested local configuration and corpus, not guaranteed performance on larger datasets or different hardware.
-
-### Reproducibility
-
-Detailed evaluation and benchmark results are provided in the `reports/` directory:
-
-- `evaluation-baseline.json`
-- `evaluation-optimized-retrieval.json`
-- `evaluation-optimized-full.json`
-- `evaluation-final.json`
-- `hnsw-benchmark.json`
-
-Run the evaluations with:
+To reproduce after ingestion:
 
 ```bash
 python evaluate.py
 python benchmark.py --iterations 10 --warmup 2 --k 5
 python -m unittest discover -s tests -v
 ```
+
 ## Team Contributions
 
-The project is divided into four areas:
-
-- Database and infrastructure.
-- Corpus collection and ingestion.
-- Embeddings and semantic retrieval.
-- Application, answer generation, and evaluation.
+This four-person team divided work across database infrastructure, corpus ingestion, vector retrieval, and application/evaluation. The repository history documents the implementation.
 
 ## License
 
-This project is licensed under the MIT License.
-See the [LICENSE](LICENSE) file for details.
-
+MIT — see [LICENSE](LICENSE).
 
 
 ## Database Design and Trade-offs
 
-The `articles` table holds source metadata (Wikipedia page ID, title, URL, category, word count and ingestion timestamp). The `chunks` table holds ordered text passages, section labels and 384-dimensional embeddings. A foreign key `chunks.article_id -> articles.id` with `ON DELETE CASCADE` prevents orphan passages; article upserts and chunk replacement commit in one transaction. The vector index uses HNSW with cosine distance and `M=6`; the sentence-transformers `all-MiniLM-L6-v2` model produces the matching 384 dimensions. Chunks default to 160 words with 30-word overlap to preserve context while limiting model input truncation.
+The `articles` table holds source metadata (Wikipedia page ID, title, URL, category, word count and ingestion timestamp). The `chunks` table holds ordered text passages, section labels and 384-dimensional embeddings. A foreign key `chunks.article_id -> articles.id` with `ON DELETE CASCADE` prevents orphan passages; article upserts and chunk replacement commit in one transaction. The vector index uses HNSW with cosine distance and `M=6`; the sentence-transformers `all-MiniLM-L6-v2` model produces the matching 384 dimensions. The evaluated corpus used `CHUNK_WORDS=120` and `CHUNK_OVERLAP=20` to reduce embedding-input truncation. The code defaults may differ unless overridden in `.env`.
 
 **Why MariaDB rather than a separate vector service?** One SQL query combines semantic ranking, metadata predicates and a relational join. The metadata and vectors participate in the same transactional database, avoiding a separate synchronization pipeline. This does **not** mean every combination of filters automatically uses the HNSW index: inspect `EXPLAIN` for the query shape and data distribution.
 
@@ -367,10 +307,6 @@ SELECT category, COUNT(*) AS article_count FROM articles GROUP BY category;
 ```
 
 For the combined semantic and relational query, see `src/search.py`: the application binds the 384-dimensional query vector and optional category, word-count and ingestion-date predicates as parameters, joins `chunks` to `articles`, orders by `VEC_DISTANCE_COSINE`, and limits results. To inspect its execution plan, use `EXPLAIN` with an actual query vector produced by `src.embeddings.embed_query`; do not substitute a made-up short vector for a 384-dimensional embedding. The ingestion-date filter refers to local fetch time, **not** the Wikipedia article's edit time.
-
-## Evaluation and reproducibility notes
-
-The evaluation dataset has 14 questions. Run `python evaluate.py --retrieval-only` and `python evaluate.py` after ingesting. Publish measured metrics with the database article/chunk counts, machine specifications, MariaDB version, embedding model, Ollama model, and warm/cold-run conditions. Do not treat literal key-point matches or valid citation numbers as proof of factual grounding. The benchmark figures above are historical reported results, not independently reproduced here.
 
 ## Security boundaries
 
