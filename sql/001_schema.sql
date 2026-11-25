@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS chunks (
     PRIMARY KEY (id),
     UNIQUE KEY uq_article_chunk (article_id, chunk_index),
     KEY idx_chunks_article_id (article_id),
-    VECTOR INDEX (embedding) M=6 DISTANCE=cosine,
+    VECTOR INDEX (embedding) M=12 DISTANCE=cosine,
     CONSTRAINT fk_chunks_article
       FOREIGN KEY (article_id) REFERENCES articles(id)
       ON DELETE CASCADE
