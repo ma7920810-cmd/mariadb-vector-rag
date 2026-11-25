@@ -356,3 +356,17 @@ For the combined semantic and relational query, see `src/search.py`: the applica
 ## Security boundaries
 
 This example is designed for trusted local use. Docker binds the database port to loopback, and passwords must be set in a private `.env` file. Do not expose the database or Ollama to the public internet. Retrieved Wikipedia text is third-party content and must not be treated as instructions to the language model; generated answers and their citations should be checked before being relied on. The application has not been security-audited for public multi-user deployment.
+
+### Expanded retrieval evaluation
+
+The 54-question dataset preserves the original 14 cases and adds 40 across five categories. On the 2,706-chunk corpus, the expanded HNSW benchmark measured 100% top-5 overlap with exact search and 194.33x mean SQL speedup (1.121 vs 217.772 ms). See `reports/hnsw-benchmark-expanded.json`.
+
+After normalizing the confirmed Transformer title redirect, `python compare_retrieval.py` compared three configurations:
+
+| Candidate pool / article cap | Precision@5 | Recall@5 | MRR@5 | nDCG@5 | Mean retrieval ms |
+|---|---:|---:|---:|---:|---:|
+| 25 / 2 (default) | .4287 | .9444 | .8457 | .8583 | 5.82 |
+| 50 / 1 | .2812 | .9537 | .8457 | .8640 | 8.12 |
+| 50 / 2 | .3994 | .9537 | .8457 | .8640 | 8.24 |
+
+All 162 retrieval evaluations succeeded. For recall-oriented use, set `RAG_POOL_FACTOR=10 RAG_ARTICLE_CAP=2` in the process environment. The default remains unchanged pending generation validation. Precision is sensitive to incomplete relevance labels and the number of distinct articles returned; these labels are not independently adjudicated. Reports are in `reports/retrieval-comparison-*.json`. The alias correction means these scores are not directly comparable to earlier uncorrected reports.
