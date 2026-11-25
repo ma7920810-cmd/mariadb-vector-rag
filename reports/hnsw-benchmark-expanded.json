@@ -1,0 +1,1795 @@
+{
+  "timestamp_utc": "2026-11-25T09:36:17.820166+00:00",
+  "configuration": {
+    "dataset": "data/evaluation-expanded.json",
+    "question_count": 54,
+    "iterations_per_question_per_method": 10,
+    "warmup_per_question_per_method": 2,
+    "k": 5,
+    "random_seed": 42,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "mariadb_version": "11.8.9-MariaDB-ubu2404",
+    "article_count": 71,
+    "chunk_count": 2706,
+    "timing_scope": "database SQL execute and fetchall; excludes embedding generation",
+    "reference": "full scan with IGNORE INDEX (embedding)"
+  },
+  "summary": {
+    "indexed": {
+      "mean_ms": 1.121,
+      "median_ms": 1.106,
+      "p95_ms": 1.423,
+      "min_ms": 0.818,
+      "max_ms": 3.155
+    },
+    "exact": {
+      "mean_ms": 217.772,
+      "median_ms": 217.096,
+      "p95_ms": 225.533,
+      "min_ms": 206.511,
+      "max_ms": 242.954
+    },
+    "speedup_mean": 194.334,
+    "mean_recall_at_k_vs_exact": 1.0
+  },
+  "explain": {
+    "indexed": [
+      [
+        "1",
+        "SIMPLE",
+        "c",
+        "index",
+        "None",
+        "embedding",
+        "1538",
+        "None",
+        "5",
+        ""
+      ]
+    ],
+    "exact": [
+      [
+        "1",
+        "SIMPLE",
+        "c",
+        "ALL",
+        "None",
+        "None",
+        "None",
+        "None",
+        "2706",
+        "Using filesort"
+      ]
+    ]
+  },
+  "per_question": [
+    {
+      "question": "What is vector search and how does it find similar items?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.11,
+        "median_ms": 1.134,
+        "p95_ms": 1.32,
+        "min_ms": 0.879,
+        "max_ms": 1.32
+      },
+      "exact": {
+        "mean_ms": 217.426,
+        "median_ms": 216.876,
+        "p95_ms": 221.844,
+        "min_ms": 214.948,
+        "max_ms": 221.844
+      },
+      "indexed_ids": [
+        3169,
+        3172,
+        3171,
+        3420,
+        3170
+      ],
+      "exact_ids": [
+        3169,
+        3172,
+        3171,
+        3420,
+        3170
+      ]
+    },
+    {
+      "question": "How does an HNSW index help with nearest-neighbor search?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.103,
+        "median_ms": 1.077,
+        "p95_ms": 1.615,
+        "min_ms": 0.833,
+        "max_ms": 1.615
+      },
+      "exact": {
+        "mean_ms": 217.946,
+        "median_ms": 217.014,
+        "p95_ms": 225.127,
+        "min_ms": 215.69,
+        "max_ms": 225.127
+      },
+      "indexed_ids": [
+        3589,
+        3597,
+        3590,
+        3598,
+        3591
+      ],
+      "exact_ids": [
+        3589,
+        3597,
+        3590,
+        3598,
+        3591
+      ]
+    },
+    {
+      "question": "What are the main stages of retrieval-augmented generation?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.029,
+        "median_ms": 1.012,
+        "p95_ms": 1.316,
+        "min_ms": 0.918,
+        "max_ms": 1.316
+      },
+      "exact": {
+        "mean_ms": 215.402,
+        "median_ms": 215.028,
+        "p95_ms": 217.84,
+        "min_ms": 214.381,
+        "max_ms": 217.84
+      },
+      "indexed_ids": [
+        3706,
+        3709,
+        3708,
+        3719,
+        5544
+      ],
+      "exact_ids": [
+        3706,
+        3709,
+        3708,
+        3719,
+        5544
+      ]
+    },
+    {
+      "question": "What is a word embedding and what information does it represent?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.081,
+        "median_ms": 1.067,
+        "p95_ms": 1.331,
+        "min_ms": 0.82,
+        "max_ms": 1.331
+      },
+      "exact": {
+        "mean_ms": 213.634,
+        "median_ms": 214.287,
+        "p95_ms": 216.355,
+        "min_ms": 209.289,
+        "max_ms": 216.355
+      },
+      "indexed_ids": [
+        5372,
+        5376,
+        5377,
+        5386,
+        5450
+      ],
+      "exact_ids": [
+        5372,
+        5376,
+        5377,
+        5386,
+        5450
+      ]
+    },
+    {
+      "question": "What guarantees do ACID database transactions provide?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.167,
+        "median_ms": 1.113,
+        "p95_ms": 1.813,
+        "min_ms": 0.94,
+        "max_ms": 1.813
+      },
+      "exact": {
+        "mean_ms": 216.66,
+        "median_ms": 215.733,
+        "p95_ms": 222.593,
+        "min_ms": 214.026,
+        "max_ms": 222.593
+      },
+      "indexed_ids": [
+        2891,
+        2883,
+        2384,
+        2892,
+        3115
+      ],
+      "exact_ids": [
+        2891,
+        2883,
+        2384,
+        2892,
+        3115
+      ]
+    },
+    {
+      "question": "How does a database index make queries faster?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.028,
+        "median_ms": 1.047,
+        "p95_ms": 1.122,
+        "min_ms": 0.846,
+        "max_ms": 1.122
+      },
+      "exact": {
+        "mean_ms": 218.638,
+        "median_ms": 218.462,
+        "p95_ms": 221.907,
+        "min_ms": 216.784,
+        "max_ms": 221.907
+      },
+      "indexed_ids": [
+        2723,
+        2463,
+        3304,
+        2726,
+        2724
+      ],
+      "exact_ids": [
+        2723,
+        2463,
+        3304,
+        2726,
+        2724
+      ]
+    },
+    {
+      "question": "How does BM25 rank documents for a search query?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.012,
+        "median_ms": 1.003,
+        "p95_ms": 1.157,
+        "min_ms": 0.832,
+        "max_ms": 1.157
+      },
+      "exact": {
+        "mean_ms": 215.869,
+        "median_ms": 215.281,
+        "p95_ms": 218.29,
+        "min_ms": 214.546,
+        "max_ms": 218.29
+      },
+      "indexed_ids": [
+        3673,
+        3404,
+        3405,
+        3403,
+        3411
+      ],
+      "exact_ids": [
+        3673,
+        3404,
+        3405,
+        3403,
+        3411
+      ]
+    },
+    {
+      "question": "What role does self-attention play in a transformer?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.026,
+        "median_ms": 1.041,
+        "p95_ms": 1.207,
+        "min_ms": 0.858,
+        "max_ms": 1.207
+      },
+      "exact": {
+        "mean_ms": 218.975,
+        "median_ms": 216.913,
+        "p95_ms": 224.8,
+        "min_ms": 215.037,
+        "max_ms": 224.8
+      },
+      "indexed_ids": [
+        4884,
+        5018,
+        4927,
+        4913,
+        4926
+      ],
+      "exact_ids": [
+        4884,
+        5018,
+        4927,
+        4913,
+        4926
+      ]
+    },
+    {
+      "question": "How do SQL joins combine rows from relational tables?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.059,
+        "median_ms": 1.061,
+        "p95_ms": 1.413,
+        "min_ms": 0.895,
+        "max_ms": 1.413
+      },
+      "exact": {
+        "mean_ms": 220.328,
+        "median_ms": 220.117,
+        "p95_ms": 222.902,
+        "min_ms": 218.65,
+        "max_ms": 222.902
+      },
+      "indexed_ids": [
+        2981,
+        2984,
+        2513,
+        2985,
+        2983
+      ],
+      "exact_ids": [
+        2981,
+        2984,
+        2513,
+        2985,
+        2983
+      ]
+    },
+    {
+      "question": "How is semantic search different from matching exact keywords?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.158,
+        "median_ms": 1.149,
+        "p95_ms": 1.437,
+        "min_ms": 0.999,
+        "max_ms": 1.437
+      },
+      "exact": {
+        "mean_ms": 214.964,
+        "median_ms": 213.689,
+        "p95_ms": 221.275,
+        "min_ms": 211.657,
+        "max_ms": 221.275
+      },
+      "indexed_ids": [
+        3604,
+        3605,
+        3606,
+        3716,
+        3259
+      ],
+      "exact_ids": [
+        3604,
+        3605,
+        3606,
+        3716,
+        3259
+      ]
+    },
+    {
+      "question": "Why is database normalization used?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.124,
+        "median_ms": 1.117,
+        "p95_ms": 1.462,
+        "min_ms": 0.916,
+        "max_ms": 1.462
+      },
+      "exact": {
+        "mean_ms": 216.308,
+        "median_ms": 215.242,
+        "p95_ms": 222.448,
+        "min_ms": 214.663,
+        "max_ms": 222.448
+      },
+      "indexed_ids": [
+        2919,
+        2469,
+        2925,
+        2928,
+        2929
+      ],
+      "exact_ids": [
+        2919,
+        2469,
+        2925,
+        2928,
+        2929
+      ]
+    },
+    {
+      "question": "What is overfitting in machine learning and how can it affect a model?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.063,
+        "median_ms": 1.066,
+        "p95_ms": 1.264,
+        "min_ms": 0.857,
+        "max_ms": 1.264
+      },
+      "exact": {
+        "mean_ms": 215.486,
+        "median_ms": 214.54,
+        "p95_ms": 220.132,
+        "min_ms": 213.374,
+        "max_ms": 220.132
+      },
+      "indexed_ids": [
+        3906,
+        4441,
+        4460,
+        4450,
+        4443
+      ],
+      "exact_ids": [
+        3906,
+        4441,
+        4460,
+        4450,
+        4443
+      ]
+    },
+    {
+      "question": "How does cosine similarity compare two vectors?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.021,
+        "median_ms": 1.025,
+        "p95_ms": 1.109,
+        "min_ms": 0.872,
+        "max_ms": 1.109
+      },
+      "exact": {
+        "mean_ms": 217.513,
+        "median_ms": 216.914,
+        "p95_ms": 223.084,
+        "min_ms": 215.467,
+        "max_ms": 223.084
+      },
+      "indexed_ids": [
+        3433,
+        3436,
+        3440,
+        3444,
+        3447
+      ],
+      "exact_ids": [
+        3433,
+        3436,
+        3440,
+        3444,
+        3447
+      ]
+    },
+    {
+      "question": "How does a hash table use a hash function to store and find data?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.249,
+        "median_ms": 1.143,
+        "p95_ms": 2.491,
+        "min_ms": 0.913,
+        "max_ms": 2.491
+      },
+      "exact": {
+        "mean_ms": 217.071,
+        "median_ms": 217.075,
+        "p95_ms": 218.561,
+        "min_ms": 215.859,
+        "max_ms": 218.561
+      },
+      "indexed_ids": [
+        6111,
+        6105,
+        6114,
+        6232,
+        6108
+      ],
+      "exact_ids": [
+        6111,
+        6105,
+        6114,
+        6232,
+        6108
+      ]
+    },
+    {
+      "question": "How does a relational model represent information and relationships?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.073,
+        "median_ms": 1.058,
+        "p95_ms": 1.217,
+        "min_ms": 0.92,
+        "max_ms": 1.217
+      },
+      "exact": {
+        "mean_ms": 217.012,
+        "median_ms": 216.376,
+        "p95_ms": 221.466,
+        "min_ms": 214.262,
+        "max_ms": 221.466
+      },
+      "indexed_ids": [
+        2508,
+        2507,
+        2517,
+        2505,
+        2452
+      ],
+      "exact_ids": [
+        2508,
+        2507,
+        2517,
+        2505,
+        2452
+      ]
+    },
+    {
+      "question": "Why are balanced multiway trees useful for range queries on disk?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.13,
+        "median_ms": 1.132,
+        "p95_ms": 1.274,
+        "min_ms": 0.885,
+        "max_ms": 1.274
+      },
+      "exact": {
+        "mean_ms": 212.328,
+        "median_ms": 210.596,
+        "p95_ms": 216.89,
+        "min_ms": 209.728,
+        "max_ms": 216.89
+      },
+      "indexed_ids": [
+        2771,
+        2754,
+        2762,
+        2772,
+        2774
+      ],
+      "exact_ids": [
+        2771,
+        2754,
+        2762,
+        2772,
+        2774
+      ]
+    },
+    {
+      "question": "How can concurrent transactions avoid interfering with one another?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.071,
+        "median_ms": 0.994,
+        "p95_ms": 1.536,
+        "min_ms": 0.818,
+        "max_ms": 1.536
+      },
+      "exact": {
+        "mean_ms": 217.893,
+        "median_ms": 217.617,
+        "p95_ms": 224.311,
+        "min_ms": 213.791,
+        "max_ms": 224.311
+      },
+      "indexed_ids": [
+        3117,
+        3118,
+        3128,
+        3129,
+        3110
+      ],
+      "exact_ids": [
+        3117,
+        3118,
+        3128,
+        3129,
+        3110
+      ]
+    },
+    {
+      "question": "How does a DBMS choose among alternative execution plans?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.099,
+        "median_ms": 1.097,
+        "p95_ms": 1.234,
+        "min_ms": 0.95,
+        "max_ms": 1.234
+      },
+      "exact": {
+        "mean_ms": 217.923,
+        "median_ms": 217.995,
+        "p95_ms": 219.548,
+        "min_ms": 216.126,
+        "max_ms": 219.548
+      },
+      "indexed_ids": [
+        2967,
+        2972,
+        2969,
+        2970,
+        2971
+      ],
+      "exact_ids": [
+        2967,
+        2972,
+        2969,
+        2970,
+        2971
+      ]
+    },
+    {
+      "question": "How can entities and their associations be represented before creating tables?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.085,
+        "median_ms": 1.128,
+        "p95_ms": 1.282,
+        "min_ms": 0.9,
+        "max_ms": 1.282
+      },
+      "exact": {
+        "mean_ms": 218.43,
+        "median_ms": 218.221,
+        "p95_ms": 226.103,
+        "min_ms": 215.557,
+        "max_ms": 226.103
+      },
+      "indexed_ids": [
+        3062,
+        3047,
+        2445,
+        3058,
+        3046
+      ],
+      "exact_ids": [
+        3062,
+        3047,
+        2445,
+        3058,
+        3046
+      ]
+    },
+    {
+      "question": "Why might an application choose a nonrelational database?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.175,
+        "median_ms": 1.098,
+        "p95_ms": 2.049,
+        "min_ms": 0.907,
+        "max_ms": 2.049
+      },
+      "exact": {
+        "mean_ms": 218.073,
+        "median_ms": 218.455,
+        "p95_ms": 225.498,
+        "min_ms": 212.212,
+        "max_ms": 225.498
+      },
+      "indexed_ids": [
+        2367,
+        2403,
+        2576,
+        2368,
+        2351
+      ],
+      "exact_ids": [
+        2367,
+        2403,
+        2576,
+        2368,
+        2351
+      ]
+    },
+    {
+      "question": "What does a database designed for embedding storage need to support?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.132,
+        "median_ms": 1.123,
+        "p95_ms": 1.557,
+        "min_ms": 0.909,
+        "max_ms": 1.557
+      },
+      "exact": {
+        "mean_ms": 215.696,
+        "median_ms": 215.511,
+        "p95_ms": 218.777,
+        "min_ms": 214.473,
+        "max_ms": 218.777
+      },
+      "indexed_ids": [
+        2375,
+        2372,
+        2374,
+        2354,
+        3169
+      ],
+      "exact_ids": [
+        2375,
+        2372,
+        2374,
+        2354,
+        3169
+      ]
+    },
+    {
+      "question": "Which language lets users declaratively select and manipulate relational data?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.193,
+        "median_ms": 1.218,
+        "p95_ms": 1.428,
+        "min_ms": 1.013,
+        "max_ms": 1.428
+      },
+      "exact": {
+        "mean_ms": 212.386,
+        "median_ms": 210.583,
+        "p95_ms": 221.12,
+        "min_ms": 206.511,
+        "max_ms": 221.12
+      },
+      "indexed_ids": [
+        2369,
+        2566,
+        2515,
+        2503,
+        2583
+      ],
+      "exact_ids": [
+        2369,
+        2566,
+        2515,
+        2503,
+        2583
+      ]
+    },
+    {
+      "question": "How can a search engine locate documents containing a term without scanning every document?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.096,
+        "median_ms": 1.053,
+        "p95_ms": 1.625,
+        "min_ms": 0.827,
+        "max_ms": 1.625
+      },
+      "exact": {
+        "mean_ms": 217.834,
+        "median_ms": 218.195,
+        "p95_ms": 219.83,
+        "min_ms": 214.667,
+        "max_ms": 219.83
+      },
+      "indexed_ids": [
+        3604,
+        3304,
+        3335,
+        3367,
+        3326
+      ],
+      "exact_ids": [
+        3604,
+        3304,
+        3335,
+        3367,
+        3326
+      ]
+    },
+    {
+      "question": "Why should a word appearing in nearly every document receive less weight?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.117,
+        "median_ms": 1.111,
+        "p95_ms": 1.252,
+        "min_ms": 0.999,
+        "max_ms": 1.252
+      },
+      "exact": {
+        "mean_ms": 217.995,
+        "median_ms": 218.015,
+        "p95_ms": 225.075,
+        "min_ms": 212.672,
+        "max_ms": 225.075
+      },
+      "indexed_ids": [
+        3425,
+        3419,
+        3423,
+        3387,
+        3424
+      ],
+      "exact_ids": [
+        3425,
+        3419,
+        3423,
+        3387,
+        3424
+      ]
+    },
+    {
+      "question": "How can hashing help find nearby objects approximately?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 0.954,
+        "median_ms": 0.948,
+        "p95_ms": 1.069,
+        "min_ms": 0.832,
+        "max_ms": 1.069
+      },
+      "exact": {
+        "mean_ms": 213.429,
+        "median_ms": 213.215,
+        "p95_ms": 215.364,
+        "min_ms": 212.288,
+        "max_ms": 215.364
+      },
+      "indexed_ids": [
+        3576,
+        3578,
+        3577,
+        3485,
+        3575
+      ],
+      "exact_ids": [
+        3576,
+        3578,
+        3577,
+        3485,
+        3575
+      ]
+    },
+    {
+      "question": "How can nearby labeled examples determine a prediction?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.133,
+        "median_ms": 1.121,
+        "p95_ms": 1.448,
+        "min_ms": 0.896,
+        "max_ms": 1.448
+      },
+      "exact": {
+        "mean_ms": 216.52,
+        "median_ms": 216.048,
+        "p95_ms": 224.282,
+        "min_ms": 213.326,
+        "max_ms": 224.282
+      },
+      "indexed_ids": [
+        3970,
+        3858,
+        3843,
+        3847,
+        3954
+      ],
+      "exact_ids": [
+        3970,
+        3858,
+        3843,
+        3847,
+        3954
+      ]
+    },
+    {
+      "question": "What is the difference between finding all relevant items and avoiding irrelevant results?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.092,
+        "median_ms": 1.091,
+        "p95_ms": 1.253,
+        "min_ms": 0.926,
+        "max_ms": 1.253
+      },
+      "exact": {
+        "mean_ms": 217.224,
+        "median_ms": 215.158,
+        "p95_ms": 238.462,
+        "min_ms": 210.82,
+        "max_ms": 238.462
+      },
+      "indexed_ids": [
+        3411,
+        3260,
+        3255,
+        3410,
+        3744
+      ],
+      "exact_ids": [
+        3411,
+        3260,
+        3255,
+        3410,
+        3744
+      ]
+    },
+    {
+      "question": "How can a search engine learn to order results from training examples?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.082,
+        "median_ms": 1.015,
+        "p95_ms": 1.363,
+        "min_ms": 0.87,
+        "max_ms": 1.363
+      },
+      "exact": {
+        "mean_ms": 213.911,
+        "median_ms": 213.922,
+        "p95_ms": 218.106,
+        "min_ms": 210.024,
+        "max_ms": 218.106
+      },
+      "indexed_ids": [
+        3672,
+        3671,
+        3688,
+        3712,
+        3670
+      ],
+      "exact_ids": [
+        3672,
+        3671,
+        3688,
+        3712,
+        3670
+      ]
+    },
+    {
+      "question": "How can a system suggest items based on user preferences?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.002,
+        "median_ms": 1.021,
+        "p95_ms": 1.174,
+        "min_ms": 0.836,
+        "max_ms": 1.174
+      },
+      "exact": {
+        "mean_ms": 220.991,
+        "median_ms": 219.867,
+        "p95_ms": 228.519,
+        "min_ms": 216.543,
+        "max_ms": 228.519
+      },
+      "indexed_ids": [
+        3815,
+        3773,
+        3770,
+        3765,
+        3763
+      ],
+      "exact_ids": [
+        3815,
+        3773,
+        3770,
+        3765,
+        3763
+      ]
+    },
+    {
+      "question": "How does a system return answers to natural language questions?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.074,
+        "median_ms": 1.101,
+        "p95_ms": 1.27,
+        "min_ms": 0.856,
+        "max_ms": 1.27
+      },
+      "exact": {
+        "mean_ms": 215.112,
+        "median_ms": 214.981,
+        "p95_ms": 219.048,
+        "min_ms": 210.428,
+        "max_ms": 219.048
+      },
+      "indexed_ids": [
+        3746,
+        3747,
+        3745,
+        3732,
+        3743
+      ],
+      "exact_ids": [
+        3746,
+        3747,
+        3745,
+        3732,
+        3743
+      ]
+    },
+    {
+      "question": "How can labeled examples be used to predict unseen outcomes?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.078,
+        "median_ms": 1.084,
+        "p95_ms": 1.242,
+        "min_ms": 0.885,
+        "max_ms": 1.242
+      },
+      "exact": {
+        "mean_ms": 216.461,
+        "median_ms": 216.554,
+        "p95_ms": 218.373,
+        "min_ms": 213.588,
+        "max_ms": 218.373
+      },
+      "indexed_ids": [
+        3976,
+        3858,
+        3954,
+        3970,
+        3977
+      ],
+      "exact_ids": [
+        3976,
+        3858,
+        3954,
+        3970,
+        3977
+      ]
+    },
+    {
+      "question": "How can patterns be discovered without labeled training examples?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.225,
+        "median_ms": 1.238,
+        "p95_ms": 1.571,
+        "min_ms": 1.013,
+        "max_ms": 1.571
+      },
+      "exact": {
+        "mean_ms": 218.39,
+        "median_ms": 217.022,
+        "p95_ms": 233.215,
+        "min_ms": 214.741,
+        "max_ms": 233.215
+      },
+      "indexed_ids": [
+        3976,
+        3858,
+        3984,
+        3955,
+        3979
+      ],
+      "exact_ids": [
+        3976,
+        3858,
+        3984,
+        3955,
+        3979
+      ]
+    },
+    {
+      "question": "How can derivatives guide iterative minimization of an objective?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.104,
+        "median_ms": 1.063,
+        "p95_ms": 1.424,
+        "min_ms": 0.865,
+        "max_ms": 1.424
+      },
+      "exact": {
+        "mean_ms": 222.617,
+        "median_ms": 223.624,
+        "p95_ms": 231.165,
+        "min_ms": 216.465,
+        "max_ms": 231.165
+      },
+      "indexed_ids": [
+        4304,
+        4287,
+        4307,
+        4284,
+        4297
+      ],
+      "exact_ids": [
+        4304,
+        4287,
+        4307,
+        4284,
+        4297
+      ]
+    },
+    {
+      "question": "Why use a randomly chosen training example rather than the whole dataset for an update?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.155,
+        "median_ms": 1.143,
+        "p95_ms": 1.468,
+        "min_ms": 0.923,
+        "max_ms": 1.468
+      },
+      "exact": {
+        "mean_ms": 218.416,
+        "median_ms": 217.964,
+        "p95_ms": 222.541,
+        "min_ms": 212.469,
+        "max_ms": 222.541
+      },
+      "indexed_ids": [
+        4082,
+        3959,
+        3960,
+        4319,
+        3894
+      ],
+      "exact_ids": [
+        4082,
+        3959,
+        3960,
+        4319,
+        3894
+      ]
+    },
+    {
+      "question": "How are derivatives propagated through layers of a neural network?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.105,
+        "median_ms": 1.096,
+        "p95_ms": 1.485,
+        "min_ms": 0.898,
+        "max_ms": 1.485
+      },
+      "exact": {
+        "mean_ms": 216.303,
+        "median_ms": 215.853,
+        "p95_ms": 224.458,
+        "min_ms": 212.889,
+        "max_ms": 224.458
+      },
+      "indexed_ids": [
+        4402,
+        4401,
+        4387,
+        4403,
+        4385
+      ],
+      "exact_ids": [
+        4402,
+        4401,
+        4387,
+        4403,
+        4385
+      ]
+    },
+    {
+      "question": "How can observations be grouped around iteratively updated centroids?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.125,
+        "median_ms": 1.097,
+        "p95_ms": 1.539,
+        "min_ms": 0.883,
+        "max_ms": 1.539
+      },
+      "exact": {
+        "mean_ms": 218.173,
+        "median_ms": 218.488,
+        "p95_ms": 221.362,
+        "min_ms": 215.075,
+        "max_ms": 221.362
+      },
+      "indexed_ids": [
+        4491,
+        4492,
+        4656,
+        4493,
+        4606
+      ],
+      "exact_ids": [
+        4491,
+        4492,
+        4656,
+        4493,
+        4606
+      ]
+    },
+    {
+      "question": "How can correlated features be projected onto directions of maximum variance?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.114,
+        "median_ms": 1.072,
+        "p95_ms": 1.795,
+        "min_ms": 0.884,
+        "max_ms": 1.795
+      },
+      "exact": {
+        "mean_ms": 215.943,
+        "median_ms": 215.595,
+        "p95_ms": 219.56,
+        "min_ms": 212.312,
+        "max_ms": 219.56
+      },
+      "indexed_ids": [
+        4759,
+        4846,
+        4793,
+        4736,
+        4845
+      ],
+      "exact_ids": [
+        4759,
+        4846,
+        4793,
+        4736,
+        4845
+      ]
+    },
+    {
+      "question": "How can an agent learn behavior from rewards received through interaction?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.051,
+        "median_ms": 1.079,
+        "p95_ms": 1.174,
+        "min_ms": 0.911,
+        "max_ms": 1.174
+      },
+      "exact": {
+        "mean_ms": 218.634,
+        "median_ms": 215.773,
+        "p95_ms": 233.175,
+        "min_ms": 209.73,
+        "max_ms": 233.175
+      },
+      "indexed_ids": [
+        5046,
+        5045,
+        5053,
+        5042,
+        5076
+      ],
+      "exact_ids": [
+        5046,
+        5045,
+        5053,
+        5042,
+        5076
+      ]
+    },
+    {
+      "question": "What field enables computers to process human language?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.198,
+        "median_ms": 1.23,
+        "p95_ms": 1.534,
+        "min_ms": 0.952,
+        "max_ms": 1.534
+      },
+      "exact": {
+        "mean_ms": 218.218,
+        "median_ms": 217.903,
+        "p95_ms": 227.161,
+        "min_ms": 210.512,
+        "max_ms": 227.161
+      },
+      "indexed_ids": [
+        5659,
+        5585,
+        5105,
+        5243,
+        5154
+      ],
+      "exact_ids": [
+        5659,
+        5585,
+        5105,
+        5243,
+        5154
+      ]
+    },
+    {
+      "question": "How can a statistical model assign probabilities to sequences of words?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.338,
+        "median_ms": 1.162,
+        "p95_ms": 3.155,
+        "min_ms": 0.976,
+        "max_ms": 3.155
+      },
+      "exact": {
+        "mean_ms": 218.219,
+        "median_ms": 218.012,
+        "p95_ms": 222.036,
+        "min_ms": 215.417,
+        "max_ms": 222.036
+      },
+      "indexed_ids": [
+        5172,
+        5169,
+        5168,
+        5173,
+        5174
+      ],
+      "exact_ids": [
+        5172,
+        5169,
+        5168,
+        5173,
+        5174
+      ]
+    },
+    {
+      "question": "What distinguishes large language models from smaller traditional language models?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.161,
+        "median_ms": 1.139,
+        "p95_ms": 1.636,
+        "min_ms": 0.912,
+        "max_ms": 1.636
+      },
+      "exact": {
+        "mean_ms": 227.628,
+        "median_ms": 225.144,
+        "p95_ms": 242.954,
+        "min_ms": 220.023,
+        "max_ms": 242.954
+      },
+      "indexed_ids": [
+        5196,
+        5168,
+        5234,
+        5228,
+        5194
+      ],
+      "exact_ids": [
+        5196,
+        5168,
+        5234,
+        5228,
+        5194
+      ]
+    },
+    {
+      "question": "How does autoregressive pretraining support text generation?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.066,
+        "median_ms": 1.072,
+        "p95_ms": 1.26,
+        "min_ms": 0.891,
+        "max_ms": 1.26
+      },
+      "exact": {
+        "mean_ms": 214.568,
+        "median_ms": 215.33,
+        "p95_ms": 217.064,
+        "min_ms": 210.723,
+        "max_ms": 217.064
+      },
+      "indexed_ids": [
+        3706,
+        4900,
+        5544,
+        5678,
+        5660
+      ],
+      "exact_ids": [
+        3706,
+        4900,
+        5544,
+        5678,
+        5660
+      ]
+    },
+    {
+      "question": "Why is bidirectional context useful for understanding text?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.21,
+        "median_ms": 1.129,
+        "p95_ms": 2.013,
+        "min_ms": 0.888,
+        "max_ms": 2.013
+      },
+      "exact": {
+        "mean_ms": 222.292,
+        "median_ms": 220.45,
+        "p95_ms": 234.1,
+        "min_ms": 218.233,
+        "max_ms": 234.1
+      },
+      "indexed_ids": [
+        5359,
+        5138,
+        5245,
+        5360,
+        5246
+      ],
+      "exact_ids": [
+        5359,
+        5138,
+        5245,
+        5360,
+        5246
+      ]
+    },
+    {
+      "question": "How can surrounding words be used to learn numerical word representations?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.198,
+        "median_ms": 1.213,
+        "p95_ms": 1.574,
+        "min_ms": 0.904,
+        "max_ms": 1.574
+      },
+      "exact": {
+        "mean_ms": 225.977,
+        "median_ms": 226.37,
+        "p95_ms": 232.534,
+        "min_ms": 215.577,
+        "max_ms": 232.534
+      },
+      "indexed_ids": [
+        5372,
+        5376,
+        5393,
+        5392,
+        5387
+      ],
+      "exact_ids": [
+        5372,
+        5376,
+        5393,
+        5392,
+        5387
+      ]
+    },
+    {
+      "question": "How can entire sentences be represented for semantic comparison?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.143,
+        "median_ms": 1.13,
+        "p95_ms": 1.508,
+        "min_ms": 0.951,
+        "max_ms": 1.508
+      },
+      "exact": {
+        "mean_ms": 214.763,
+        "median_ms": 213.42,
+        "p95_ms": 223.26,
+        "min_ms": 207.915,
+        "max_ms": 223.26
+      },
+      "indexed_ids": [
+        5455,
+        5416,
+        3714,
+        5151,
+        5454
+      ],
+      "exact_ids": [
+        5455,
+        5416,
+        3714,
+        5151,
+        5454
+      ]
+    },
+    {
+      "question": "What is it called when a generative model produces plausible but false information?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.164,
+        "median_ms": 1.217,
+        "p95_ms": 1.309,
+        "min_ms": 0.902,
+        "max_ms": 1.309
+      },
+      "exact": {
+        "mean_ms": 220.425,
+        "median_ms": 220.546,
+        "p95_ms": 223.079,
+        "min_ms": 218.007,
+        "max_ms": 223.079
+      },
+      "indexed_ids": [
+        5461,
+        5241,
+        3908,
+        3909,
+        5459
+      ],
+      "exact_ids": [
+        5461,
+        5241,
+        3908,
+        3909,
+        5459
+      ]
+    },
+    {
+      "question": "How can instructions and examples influence a language model's output?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.163,
+        "median_ms": 1.146,
+        "p95_ms": 1.635,
+        "min_ms": 0.899,
+        "max_ms": 1.635
+      },
+      "exact": {
+        "mean_ms": 221.332,
+        "median_ms": 221.097,
+        "p95_ms": 225.533,
+        "min_ms": 217.841,
+        "max_ms": 225.533
+      },
+      "indexed_ids": [
+        5527,
+        5209,
+        5168,
+        5208,
+        5234
+      ],
+      "exact_ids": [
+        5527,
+        5209,
+        5168,
+        5208,
+        5234
+      ]
+    },
+    {
+      "question": "What makes a sequence of computational steps an algorithm?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.134,
+        "median_ms": 1.126,
+        "p95_ms": 1.352,
+        "min_ms": 0.963,
+        "max_ms": 1.352
+      },
+      "exact": {
+        "mean_ms": 217.484,
+        "median_ms": 217.592,
+        "p95_ms": 220.139,
+        "min_ms": 214.783,
+        "max_ms": 220.139
+      },
+      "indexed_ids": [
+        5906,
+        5903,
+        5923,
+        5901,
+        5931
+      ],
+      "exact_ids": [
+        5906,
+        5903,
+        5923,
+        5901,
+        5931
+      ]
+    },
+    {
+      "question": "Why organize information differently depending on the operations required?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.184,
+        "median_ms": 1.205,
+        "p95_ms": 1.314,
+        "min_ms": 0.94,
+        "max_ms": 1.314
+      },
+      "exact": {
+        "mean_ms": 218.385,
+        "median_ms": 218.085,
+        "p95_ms": 220.837,
+        "min_ms": 216.727,
+        "max_ms": 220.837
+      },
+      "indexed_ids": [
+        5968,
+        2331,
+        5626,
+        5964,
+        5973
+      ],
+      "exact_ids": [
+        5968,
+        2331,
+        5626,
+        5964,
+        5973
+      ]
+    },
+    {
+      "question": "How does computational running time change as input size grows?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.085,
+        "median_ms": 1.124,
+        "p95_ms": 1.191,
+        "min_ms": 0.893,
+        "max_ms": 1.191
+      },
+      "exact": {
+        "mean_ms": 223.172,
+        "median_ms": 222.199,
+        "p95_ms": 230.752,
+        "min_ms": 220.671,
+        "max_ms": 230.752
+      },
+      "indexed_ids": [
+        5980,
+        5979,
+        6073,
+        5994,
+        5983
+      ],
+      "exact_ids": [
+        5980,
+        5979,
+        6073,
+        5994,
+        5983
+      ]
+    },
+    {
+      "question": "How can connections between objects be represented mathematically in a data structure?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.198,
+        "median_ms": 1.189,
+        "p95_ms": 1.32,
+        "min_ms": 1.072,
+        "max_ms": 1.32
+      },
+      "exact": {
+        "mean_ms": 213.484,
+        "median_ms": 213.595,
+        "p95_ms": 216.06,
+        "min_ms": 209.015,
+        "max_ms": 216.06
+      },
+      "indexed_ids": [
+        5964,
+        5967,
+        6296,
+        6295,
+        6299
+      ],
+      "exact_ids": [
+        5964,
+        5967,
+        6296,
+        6295,
+        6299
+      ]
+    },
+    {
+      "question": "How can arbitrary inputs be mapped to fixed-size values?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.241,
+        "median_ms": 1.178,
+        "p95_ms": 1.609,
+        "min_ms": 1.107,
+        "max_ms": 1.609
+      },
+      "exact": {
+        "mean_ms": 219.142,
+        "median_ms": 219.412,
+        "p95_ms": 222.098,
+        "min_ms": 215.835,
+        "max_ms": 222.098
+      },
+      "indexed_ids": [
+        6133,
+        6134,
+        4088,
+        6122,
+        6140
+      ],
+      "exact_ids": [
+        6133,
+        6134,
+        4088,
+        6122,
+        6140
+      ]
+    },
+    {
+      "question": "What is the field concerned with machines performing tasks associated with intelligence?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.157,
+        "median_ms": 1.158,
+        "p95_ms": 1.323,
+        "min_ms": 0.983,
+        "max_ms": 1.323
+      },
+      "exact": {
+        "mean_ms": 217.559,
+        "median_ms": 217.548,
+        "p95_ms": 220.203,
+        "min_ms": 214.904,
+        "max_ms": 220.203
+      },
+      "indexed_ids": [
+        5617,
+        5646,
+        3831,
+        5741,
+        5767
+      ],
+      "exact_ids": [
+        5617,
+        5646,
+        3831,
+        5741,
+        5767
+      ]
+    },
+    {
+      "question": "What discipline studies computation, algorithms and information processing?",
+      "recall_at_k_vs_exact": 1.0,
+      "indexed": {
+        "mean_ms": 1.176,
+        "median_ms": 1.166,
+        "p95_ms": 1.494,
+        "min_ms": 1.03,
+        "max_ms": 1.494
+      },
+      "exact": {
+        "mean_ms": 223.138,
+        "median_ms": 223.4,
+        "p95_ms": 227.282,
+        "min_ms": 216.145,
+        "max_ms": 227.282
+      },
+      "indexed_ids": [
+        5595,
+        5599,
+        5597,
+        5605,
+        5604
+      ],
+      "exact_ids": [
+        5595,
+        5599,
+        5597,
+        5605,
+        5604
+      ]
+    }
+  ]
+}
