@@ -1,0 +1,463 @@
+{
+  "configuration": {
+    "m": [
+      6,
+      12,
+      24,
+      48
+    ],
+    "width": [
+      20,
+      50,
+      100,
+      200
+    ],
+    "k": 5,
+    "iterations": 5,
+    "dataset": "data/evaluation.json",
+    "output": "reports/hnsw-sweep.json"
+  },
+  "results": [
+    {
+      "m": 6,
+      "ef_search": 20,
+      "build_seconds": 0.3156551779999859,
+      "recall_vs_exact": 0.9714285714285714,
+      "latency": {
+        "mean_ms": 0.882,
+        "median_ms": 0.864,
+        "p95_ms": 1.033,
+        "min_ms": 0.768,
+        "max_ms": 1.176
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 6,
+      "ef_search": 50,
+      "build_seconds": 0.3156551779999859,
+      "recall_vs_exact": 0.9714285714285714,
+      "latency": {
+        "mean_ms": 0.876,
+        "median_ms": 0.862,
+        "p95_ms": 0.997,
+        "min_ms": 0.772,
+        "max_ms": 1.134
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 6,
+      "ef_search": 100,
+      "build_seconds": 0.3156551779999859,
+      "recall_vs_exact": 0.9714285714285714,
+      "latency": {
+        "mean_ms": 0.901,
+        "median_ms": 0.887,
+        "p95_ms": 1.079,
+        "min_ms": 0.776,
+        "max_ms": 1.242
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 6,
+      "ef_search": 200,
+      "build_seconds": 0.3156551779999859,
+      "recall_vs_exact": 0.9714285714285714,
+      "latency": {
+        "mean_ms": 1.004,
+        "median_ms": 0.971,
+        "p95_ms": 1.274,
+        "min_ms": 0.832,
+        "max_ms": 2.045
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 12,
+      "ef_search": 20,
+      "build_seconds": 0.5166077899999664,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.878,
+        "median_ms": 0.848,
+        "p95_ms": 1.079,
+        "min_ms": 0.708,
+        "max_ms": 1.298
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 12,
+      "ef_search": 50,
+      "build_seconds": 0.5166077899999664,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.922,
+        "median_ms": 0.881,
+        "p95_ms": 1.081,
+        "min_ms": 0.779,
+        "max_ms": 2.589
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 12,
+      "ef_search": 100,
+      "build_seconds": 0.5166077899999664,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.937,
+        "median_ms": 0.926,
+        "p95_ms": 1.082,
+        "min_ms": 0.801,
+        "max_ms": 1.347
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 12,
+      "ef_search": 200,
+      "build_seconds": 0.5166077899999664,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.971,
+        "median_ms": 0.961,
+        "p95_ms": 1.132,
+        "min_ms": 0.829,
+        "max_ms": 1.397
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 24,
+      "ef_search": 20,
+      "build_seconds": 1.6065670060000343,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.876,
+        "median_ms": 0.861,
+        "p95_ms": 1.051,
+        "min_ms": 0.751,
+        "max_ms": 1.417
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 24,
+      "ef_search": 50,
+      "build_seconds": 1.6065670060000343,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.89,
+        "median_ms": 0.88,
+        "p95_ms": 0.983,
+        "min_ms": 0.784,
+        "max_ms": 1.186
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 24,
+      "ef_search": 100,
+      "build_seconds": 1.6065670060000343,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 0.94,
+        "median_ms": 0.92,
+        "p95_ms": 1.144,
+        "min_ms": 0.778,
+        "max_ms": 1.242
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 24,
+      "ef_search": 200,
+      "build_seconds": 1.6065670060000343,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 1.002,
+        "median_ms": 0.986,
+        "p95_ms": 1.135,
+        "min_ms": 0.901,
+        "max_ms": 1.294
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 48,
+      "ef_search": 20,
+      "build_seconds": 5.197838307999973,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 1.047,
+        "median_ms": 0.984,
+        "p95_ms": 1.275,
+        "min_ms": 0.884,
+        "max_ms": 3.614
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 48,
+      "ef_search": 50,
+      "build_seconds": 5.197838307999973,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 1.038,
+        "median_ms": 1.034,
+        "p95_ms": 1.184,
+        "min_ms": 0.905,
+        "max_ms": 1.422
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 48,
+      "ef_search": 100,
+      "build_seconds": 5.197838307999973,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 1.052,
+        "median_ms": 1.048,
+        "p95_ms": 1.204,
+        "min_ms": 0.888,
+        "max_ms": 1.321
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    },
+    {
+      "m": 48,
+      "ef_search": 200,
+      "build_seconds": 5.197838307999973,
+      "recall_vs_exact": 1.0,
+      "latency": {
+        "mean_ms": 1.135,
+        "median_ms": 1.109,
+        "p95_ms": 1.423,
+        "min_ms": 0.935,
+        "max_ms": 1.761
+      },
+      "explain": [
+        [
+          "1",
+          "SIMPLE",
+          "hnsw_sweep_3265d3e482d84e849f817105696f61ea",
+          "index",
+          "None",
+          "sweep_embedding",
+          "1538",
+          "None",
+          "5",
+          ""
+        ]
+      ]
+    }
+  ],
+  "version": "11.8.9-MariaDB-ubu2404",
+  "chunks": 2706,
+  "exact_latency": {
+    "mean_ms": 219.317,
+    "median_ms": 217.791,
+    "p95_ms": 230.023,
+    "min_ms": 215.648,
+    "max_ms": 230.023
+  }
+}
