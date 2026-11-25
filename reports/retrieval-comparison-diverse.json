@@ -1,0 +1,1038 @@
+{
+  "summary": {
+    "cases": 54,
+    "successful": 54,
+    "failure_rate": 0.0,
+    "retrieval_metrics": {
+      "precision@5": 0.2812,
+      "recall@5": 0.9537,
+      "mrr@5": 0.8457,
+      "ndcg@5": 0.864
+    },
+    "retrieval_latency": {
+      "mean_ms": 8.12,
+      "median_ms": 7.95,
+      "p95_ms": 9.45
+    },
+    "total_latency": {
+      "mean_ms": 13.17,
+      "median_ms": 13.21,
+      "p95_ms": 14.88
+    }
+  },
+  "results": [
+    {
+      "id": "vector-search",
+      "question": "What is vector search and how does it find similar items?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.8503449055347546,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.08,
+      "retrieved_titles": [
+        "Vector space model",
+        "Retrieval-augmented generation",
+        "Learning to rank",
+        "Hierarchical navigable small world",
+        "Nearest neighbor search"
+      ],
+      "total_ms": 13.88
+    },
+    {
+      "id": "hnsw",
+      "question": "How does an HNSW index help with nearest-neighbor search?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.44,
+      "retrieved_titles": [
+        "Hierarchical navigable small world",
+        "Nearest neighbor search",
+        "Locality-sensitive hashing",
+        "K-nearest neighbors algorithm",
+        "Search engine indexing"
+      ],
+      "total_ms": 13.55
+    },
+    {
+      "id": "rag",
+      "question": "What are the main stages of retrieval-augmented generation?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.13,
+      "retrieved_titles": [
+        "Retrieval-augmented generation",
+        "Information retrieval",
+        "Okapi BM25",
+        "Search engine indexing",
+        "Inverted index"
+      ],
+      "total_ms": 13.04
+    },
+    {
+      "id": "embeddings",
+      "question": "What is a word embedding and what information does it represent?",
+      "ok": true,
+      "precision@5": 0.6,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 3,
+      "retrieval_ms": 7.24,
+      "retrieved_titles": [
+        "Word embedding",
+        "Sentence embedding",
+        "Word2Vec",
+        "BERT (language model)",
+        "Language model"
+      ],
+      "total_ms": 12.08
+    },
+    {
+      "id": "transactions",
+      "question": "What guarantees do ACID database transactions provide?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.89,
+      "retrieved_titles": [
+        "ACID",
+        "Database transaction",
+        "Database",
+        "Concurrency control",
+        "NoSQL"
+      ],
+      "total_ms": 12.41
+    },
+    {
+      "id": "indexing",
+      "question": "How does a database index make queries faster?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.08,
+      "retrieved_titles": [
+        "Database index",
+        "Relational database",
+        "B-tree",
+        "Query optimization",
+        "NoSQL"
+      ],
+      "total_ms": 11.48
+    },
+    {
+      "id": "bm25",
+      "question": "How does BM25 rank documents for a search query?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 0.5,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.38685280723454163,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.04,
+      "retrieved_titles": [
+        "Learning to rank",
+        "Okapi BM25",
+        "Search engine indexing",
+        "Information retrieval",
+        "Vector space model"
+      ],
+      "total_ms": 12.01
+    },
+    {
+      "id": "transformer",
+      "question": "What role does self-attention play in a transformer?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.04,
+      "retrieved_titles": [
+        "Transformer (deep learning)",
+        "Attention (machine learning)",
+        "Neural network (machine learning)"
+      ],
+      "total_ms": 12.72
+    },
+    {
+      "id": "sql-joins",
+      "question": "How do SQL joins combine rows from relational tables?",
+      "ok": true,
+      "precision@5": 0.5,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.73,
+      "retrieved_titles": [
+        "Join (SQL)",
+        "Relational model",
+        "Relational database",
+        "Query optimization"
+      ],
+      "total_ms": 12.27
+    },
+    {
+      "id": "semantic-search",
+      "question": "How is semantic search different from matching exact keywords?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.5,
+      "retrieved_titles": [
+        "Semantic search",
+        "Retrieval-augmented generation",
+        "Information retrieval",
+        "Search engine indexing",
+        "Vector space model"
+      ],
+      "total_ms": 13.26
+    },
+    {
+      "id": "normalization",
+      "question": "Why is database normalization used?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.38,
+      "retrieved_titles": [
+        "Database normalization",
+        "Relational database",
+        "Database",
+        "Relational model",
+        "SQL"
+      ],
+      "total_ms": 12.56
+    },
+    {
+      "id": "overfitting",
+      "question": "What is overfitting in machine learning and how can it affect a model?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.8,
+      "retrieved_titles": [
+        "Machine learning",
+        "Overfitting",
+        "Neural network (machine learning)",
+        "Supervised learning",
+        "Deep learning"
+      ],
+      "total_ms": 13.39
+    },
+    {
+      "id": "cosine",
+      "question": "How does cosine similarity compare two vectors?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.13,
+      "retrieved_titles": [
+        "Cosine similarity",
+        "Vector space model",
+        "Locality-sensitive hashing",
+        "Nearest neighbor search",
+        "Retrieval-augmented generation"
+      ],
+      "total_ms": 13.74
+    },
+    {
+      "id": "hash-table",
+      "question": "How does a hash table use a hash function to store and find data?",
+      "ok": true,
+      "precision@5": 0.6666666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.05,
+      "retrieved_titles": [
+        "Hash function",
+        "Hash table",
+        "Data structure"
+      ],
+      "total_ms": 12.91
+    },
+    {
+      "id": "ext-relational",
+      "question": "How does a relational model represent information and relationships?",
+      "ok": true,
+      "precision@5": 0.5,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.25,
+      "retrieved_titles": [
+        "Relational model",
+        "Relational database",
+        "Entity\u2013relationship model",
+        "Database"
+      ],
+      "total_ms": 11.89
+    },
+    {
+      "id": "ext-btree",
+      "question": "Why are balanced multiway trees useful for range queries on disk?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 9.15,
+      "retrieved_titles": [
+        "B-tree",
+        "Query optimization",
+        "Database index",
+        "Database normalization",
+        "Join (SQL)"
+      ],
+      "total_ms": 14.7
+    },
+    {
+      "id": "ext-isolation",
+      "question": "How can concurrent transactions avoid interfering with one another?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 0.9197207891481876,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 9.03,
+      "retrieved_titles": [
+        "Concurrency control",
+        "ACID",
+        "Database transaction",
+        "Database",
+        "MariaDB"
+      ],
+      "total_ms": 13.76
+    },
+    {
+      "id": "ext-optimizer",
+      "question": "How does a DBMS choose among alternative execution plans?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.96,
+      "retrieved_titles": [
+        "Query optimization",
+        "Database",
+        "Concurrency control",
+        "SQL",
+        "ACID"
+      ],
+      "total_ms": 13.05
+    },
+    {
+      "id": "ext-er",
+      "question": "How can entities and their associations be represented before creating tables?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.83,
+      "retrieved_titles": [
+        "Entity\u2013relationship model",
+        "Relational database",
+        "Relational model",
+        "Database",
+        "Database normalization"
+      ],
+      "total_ms": 12.79
+    },
+    {
+      "id": "ext-nosql",
+      "question": "Why might an application choose a nonrelational database?",
+      "ok": true,
+      "precision@5": 0.0,
+      "recall@5": 0.0,
+      "mrr@5": 0.0,
+      "ndcg@5": 0.0,
+      "relevant_retrieved": 0,
+      "retrieval_ms": 7.34,
+      "retrieved_titles": [
+        "Database",
+        "SQL",
+        "Database normalization",
+        "ACID",
+        "Relational model"
+      ],
+      "total_ms": 12.44
+    },
+    {
+      "id": "ext-vector-db",
+      "question": "What does a database designed for embedding storage need to support?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.8,
+      "retrieved_titles": [
+        "Database",
+        "Vector database",
+        "Relational model",
+        "NoSQL",
+        "Database normalization"
+      ],
+      "total_ms": 13.6
+    },
+    {
+      "id": "ext-sql",
+      "question": "Which language lets users declaratively select and manipulate relational data?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 9.45,
+      "retrieved_titles": [
+        "Database",
+        "SQL",
+        "Relational model",
+        "Relational database",
+        "Database normalization"
+      ],
+      "total_ms": 15.06
+    },
+    {
+      "id": "ext-inverted",
+      "question": "How can a search engine locate documents containing a term without scanning every document?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6934264036172708,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 7.91,
+      "retrieved_titles": [
+        "Semantic search",
+        "Search engine indexing",
+        "Inverted index",
+        "Learning to rank",
+        "Information retrieval"
+      ],
+      "total_ms": 13.47
+    },
+    {
+      "id": "ext-tfidf",
+      "question": "Why should a word appearing in nearly every document receive less weight?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.66,
+      "retrieved_titles": [
+        "Vector space model",
+        "Tf\u2013idf",
+        "Search engine indexing",
+        "Retrieval-augmented generation",
+        "Information retrieval"
+      ],
+      "total_ms": 13.38
+    },
+    {
+      "id": "ext-lsh",
+      "question": "How can hashing help find nearby objects approximately?",
+      "ok": true,
+      "precision@5": 0.25,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.99,
+      "retrieved_titles": [
+        "Locality-sensitive hashing",
+        "Nearest neighbor search",
+        "Hierarchical navigable small world",
+        "K-nearest neighbors algorithm"
+      ],
+      "total_ms": 13.02
+    },
+    {
+      "id": "ext-knn",
+      "question": "How can nearby labeled examples determine a prediction?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.52,
+      "retrieved_titles": [
+        "K-nearest neighbors algorithm",
+        "Nearest neighbor search",
+        "Locality-sensitive hashing",
+        "Recommender system",
+        "Precision and recall"
+      ],
+      "total_ms": 12.44
+    },
+    {
+      "id": "ext-pr",
+      "question": "What is the difference between finding all relevant items and avoiding irrelevant results?",
+      "ok": true,
+      "precision@5": 0.0,
+      "recall@5": 0.0,
+      "mrr@5": 0.0,
+      "ndcg@5": 0.0,
+      "relevant_retrieved": 0,
+      "retrieval_ms": 9.18,
+      "retrieved_titles": [
+        "Okapi BM25",
+        "Information retrieval",
+        "Question answering",
+        "Retrieval-augmented generation",
+        "Nearest neighbor search"
+      ],
+      "total_ms": 14.31
+    },
+    {
+      "id": "ext-ltr",
+      "question": "How can a search engine learn to order results from training examples?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.89,
+      "retrieved_titles": [
+        "Learning to rank",
+        "Retrieval-augmented generation",
+        "Information retrieval",
+        "Semantic search",
+        "Okapi BM25"
+      ],
+      "total_ms": 13.94
+    },
+    {
+      "id": "ext-recommend",
+      "question": "How can a system suggest items based on user preferences?",
+      "ok": true,
+      "precision@5": 0.3333333333333333,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.03,
+      "retrieved_titles": [
+        "Recommender system",
+        "K-nearest neighbors algorithm",
+        "Tf\u2013idf"
+      ],
+      "total_ms": 13.17
+    },
+    {
+      "id": "ext-qa",
+      "question": "How does a system return answers to natural language questions?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.92,
+      "retrieved_titles": [
+        "Question answering",
+        "Retrieval-augmented generation",
+        "Search engine indexing",
+        "Information retrieval",
+        "Semantic search"
+      ],
+      "total_ms": 13.65
+    },
+    {
+      "id": "ext-supervised",
+      "question": "How can labeled examples be used to predict unseen outcomes?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 9.53,
+      "retrieved_titles": [
+        "Supervised learning",
+        "Machine learning",
+        "Unsupervised learning",
+        "Deep learning",
+        "Neural network (machine learning)"
+      ],
+      "total_ms": 14.88
+    },
+    {
+      "id": "ext-unsupervised",
+      "question": "How can patterns be discovered without labeled training examples?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.3333333333333333,
+      "ndcg@5": 0.5,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.75,
+      "retrieved_titles": [
+        "Supervised learning",
+        "Machine learning",
+        "Unsupervised learning",
+        "Reinforcement learning",
+        "Deep learning"
+      ],
+      "total_ms": 13.16
+    },
+    {
+      "id": "ext-gradient",
+      "question": "How can derivatives guide iterative minimization of an objective?",
+      "ok": true,
+      "precision@5": 0.25,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 9.22,
+      "retrieved_titles": [
+        "Gradient descent",
+        "Stochastic gradient descent",
+        "Backpropagation",
+        "Supervised learning"
+      ],
+      "total_ms": 14.72
+    },
+    {
+      "id": "ext-sgd",
+      "question": "Why use a randomly chosen training example rather than the whole dataset for an update?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.3333333333333333,
+      "ndcg@5": 0.5,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.94,
+      "retrieved_titles": [
+        "Neural network (machine learning)",
+        "Supervised learning",
+        "Stochastic gradient descent",
+        "Machine learning",
+        "Reinforcement learning"
+      ],
+      "total_ms": 12.99
+    },
+    {
+      "id": "ext-backprop",
+      "question": "How are derivatives propagated through layers of a neural network?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.11,
+      "retrieved_titles": [
+        "Backpropagation",
+        "Neural network (machine learning)",
+        "Neural network",
+        "Deep learning",
+        "Machine learning"
+      ],
+      "total_ms": 11.7
+    },
+    {
+      "id": "ext-kmeans",
+      "question": "How can observations be grouped around iteratively updated centroids?",
+      "ok": true,
+      "precision@5": 0.3333333333333333,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.9,
+      "retrieved_titles": [
+        "Cluster analysis",
+        "K-means clustering",
+        "Principal component analysis"
+      ],
+      "total_ms": 12.5
+    },
+    {
+      "id": "ext-pca",
+      "question": "How can correlated features be projected onto directions of maximum variance?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.47,
+      "retrieved_titles": [
+        "Principal component analysis",
+        "Dimensionality reduction",
+        "Gradient descent",
+        "Attention (machine learning)",
+        "Cluster analysis"
+      ],
+      "total_ms": 13.29
+    },
+    {
+      "id": "ext-rl",
+      "question": "How can an agent learn behavior from rewards received through interaction?",
+      "ok": true,
+      "precision@5": 0.25,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.73,
+      "retrieved_titles": [
+        "Reinforcement learning",
+        "Neural network (machine learning)",
+        "Machine learning",
+        "Deep learning"
+      ],
+      "total_ms": 12.8
+    },
+    {
+      "id": "ext-nlp",
+      "question": "What field enables computers to process human language?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.88,
+      "retrieved_titles": [
+        "Natural language processing",
+        "Large language model",
+        "Prompt engineering",
+        "Language model",
+        "Hallucination (artificial intelligence)"
+      ],
+      "total_ms": 13.4
+    },
+    {
+      "id": "ext-lm",
+      "question": "How can a statistical model assign probabilities to sequences of words?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.52,
+      "retrieved_titles": [
+        "Language model",
+        "Word2Vec",
+        "Natural language processing",
+        "Large language model",
+        "Word embedding"
+      ],
+      "total_ms": 13.52
+    },
+    {
+      "id": "ext-llm",
+      "question": "What distinguishes large language models from smaller traditional language models?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.91,
+      "retrieved_titles": [
+        "Large language model",
+        "Language model",
+        "Prompt engineering",
+        "BERT (language model)",
+        "Word2Vec"
+      ],
+      "total_ms": 14.98
+    },
+    {
+      "id": "ext-gpt",
+      "question": "How does autoregressive pretraining support text generation?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.63,
+      "retrieved_titles": [
+        "Prompt engineering",
+        "Generative pre-trained transformer",
+        "Language model",
+        "Word2Vec",
+        "Large language model"
+      ],
+      "total_ms": 13.52
+    },
+    {
+      "id": "ext-bert",
+      "question": "Why is bidirectional context useful for understanding text?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.99,
+      "retrieved_titles": [
+        "BERT (language model)",
+        "Natural language processing",
+        "Large language model",
+        "Word2Vec",
+        "Prompt engineering"
+      ],
+      "total_ms": 13.99
+    },
+    {
+      "id": "ext-w2v",
+      "question": "How can surrounding words be used to learn numerical word representations?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 9.93,
+      "retrieved_titles": [
+        "Word embedding",
+        "Word2Vec",
+        "Language model",
+        "Natural language processing",
+        "Large language model"
+      ],
+      "total_ms": 14.85
+    },
+    {
+      "id": "ext-sentence",
+      "question": "How can entire sentences be represented for semantic comparison?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.72,
+      "retrieved_titles": [
+        "Sentence embedding",
+        "Word2Vec",
+        "Natural language processing",
+        "Word embedding",
+        "Language model"
+      ],
+      "total_ms": 13.51
+    },
+    {
+      "id": "ext-hallucination",
+      "question": "What is it called when a generative model produces plausible but false information?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.89,
+      "retrieved_titles": [
+        "Hallucination (artificial intelligence)",
+        "Large language model",
+        "Generative pre-trained transformer",
+        "Prompt engineering",
+        "Language model"
+      ],
+      "total_ms": 12.86
+    },
+    {
+      "id": "ext-prompt",
+      "question": "How can instructions and examples influence a language model's output?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.74,
+      "retrieved_titles": [
+        "Prompt engineering",
+        "Large language model",
+        "Language model",
+        "Natural language processing",
+        "BERT (language model)"
+      ],
+      "total_ms": 13.47
+    },
+    {
+      "id": "ext-algorithm",
+      "question": "What makes a sequence of computational steps an algorithm?",
+      "ok": true,
+      "precision@5": 0.25,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.03,
+      "retrieved_titles": [
+        "Algorithm",
+        "Computer science",
+        "Time complexity",
+        "Artificial intelligence"
+      ],
+      "total_ms": 11.61
+    },
+    {
+      "id": "ext-structures",
+      "question": "Why organize information differently depending on the operations required?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.37,
+      "retrieved_titles": [
+        "Data structure",
+        "Computer science",
+        "Hash table",
+        "Algorithm",
+        "Time complexity"
+      ],
+      "total_ms": 11.87
+    },
+    {
+      "id": "ext-complexity",
+      "question": "How does computational running time change as input size grows?",
+      "ok": true,
+      "precision@5": 0.4,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 2,
+      "retrieval_ms": 8.96,
+      "retrieved_titles": [
+        "Time complexity",
+        "Big O notation",
+        "Algorithm",
+        "Computer science",
+        "Hash function"
+      ],
+      "total_ms": 14.34
+    },
+    {
+      "id": "ext-graph",
+      "question": "How can connections between objects be represented mathematically in a data structure?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.47,
+      "retrieved_titles": [
+        "Data structure",
+        "Graph (abstract data type)",
+        "Algorithm",
+        "Hash table",
+        "Computer science"
+      ],
+      "total_ms": 12.07
+    },
+    {
+      "id": "ext-hash",
+      "question": "How can arbitrary inputs be mapped to fixed-size values?",
+      "ok": true,
+      "precision@5": 0.2,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.27,
+      "retrieved_titles": [
+        "Hash function",
+        "Time complexity",
+        "Hash table",
+        "Big O notation",
+        "Data structure"
+      ],
+      "total_ms": 11.87
+    },
+    {
+      "id": "ext-ai",
+      "question": "What is the field concerned with machines performing tasks associated with intelligence?",
+      "ok": true,
+      "precision@5": 0.3333333333333333,
+      "recall@5": 1.0,
+      "mrr@5": 0.5,
+      "ndcg@5": 0.6309297535714575,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 8.67,
+      "retrieved_titles": [
+        "Computer science",
+        "Artificial intelligence",
+        "Algorithm"
+      ],
+      "total_ms": 13.26
+    },
+    {
+      "id": "ext-cs",
+      "question": "What discipline studies computation, algorithms and information processing?",
+      "ok": true,
+      "precision@5": 0.25,
+      "recall@5": 1.0,
+      "mrr@5": 1.0,
+      "ndcg@5": 1.0,
+      "relevant_retrieved": 1,
+      "retrieval_ms": 7.29,
+      "retrieved_titles": [
+        "Computer science",
+        "Artificial intelligence",
+        "Algorithm",
+        "Time complexity"
+      ],
+      "total_ms": 11.91
+    }
+  ],
+  "configuration": {
+    "pool_factor": 10,
+    "article_cap": 1
+  }
+}
