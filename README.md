@@ -219,6 +219,21 @@ python evaluate.py --k 10 --output reports/run-1
 
 Run metric and SQL-filter unit tests with `python -m unittest tests.test_evaluation -v`. Retrieval relevance uses expected article titles at article level. Key-point coverage is a literal phrase-match proxy, not a semantic judge, and citation checks verify citation format/index range, not whether a cited passage supports each claim. Human review is needed for answer relevance and factual support. Latency depends on model warm-up, hardware, and database state; report those conditions with results. The first run can be slower while the embedding model initializes. Generation latency is primarily local Ollama/model performance.
 
+### Staged evaluation history
+
+The retrieval optimisation uses a fivefold candidate pool followed by a maximum of two passages per article to improve source diversity; the full optimisation adds local Ollama generation with a concise, source-grounded prompt and controlled generation settings. The final stage additionally tightened citation formatting and normalized explicit source references while rejecting out-of-range source numbers ([citation change](https://github.com/ma7920810-cmd/mariadb-vector-rag/commit/dcb6c295bcec32b7dd10ada0a0bb704a643cc681)).
+
+| Report | Precision@5 | Recall@5 | MRR@5 | nDCG@5 | Citation validity | Median total latency |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| [Baseline](reports/evaluation-baseline.json) | .4988 | .8333 | .9643 | .8270 | 1.0000 | 3038.60 ms |
+| [Retrieval optimised](reports/evaluation-optimized-retrieval.json) | .5702 | .9286 | .9286 | .8845 | N/A | 40.41 ms |
+| [Full optimised](reports/evaluation-optimized-full.json) | .5702 | .9286 | .9286 | .8845 | .8571 | 2769.25 ms |
+| [Final](reports/evaluation-final.json) | .5702 | .9286 | .9286 | .8845 | .9286 | 2563.56 ms |
+
+All four reports contain 14 successful cases. Recall improved by 9.53 percentage points and precision by 7.14 points, while MRR decreased by 3.57 points. Final citation validity recovered relative to the full-optimised run but remained below baseline; key-point coverage stayed at .8095 across the three generation runs. The retrieval-only latency excludes generation and cannot be directly compared with end-to-end latency. Historical reports do not record every configuration or corpus snapshot, so these are observed stage differences, not a controlled causal ablation of each individual change.
+
+After migrating the existing index to M=12, [the validation benchmark](reports/hnsw-benchmark-m12.json) measured 1.073 ms mean indexed SQL latency versus 217.651 ms exact scan (202.761x speedup), with 100% exact-neighbor recall. The [retrieval-only validation](reports/evaluation-m12-retrieval.json) retained .9286 semantic recall and .5702 precision with zero failures. These metrics measure different notions of recall.
+
 ### HNSW parameter selection
 
 The [16-configuration sweep](reports/hnsw-sweep.json) on 2706 stored chunks compared M=6, 12, 24 and 48 at session search widths 20, 50, 100 and 200 against an exact scan of the same vectors. Each configuration used 14 questions and five timed repetitions per question.
