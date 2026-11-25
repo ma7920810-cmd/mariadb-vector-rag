@@ -219,6 +219,27 @@ python evaluate.py --k 10 --output reports/run-1
 
 Run metric and SQL-filter unit tests with `python -m unittest tests.test_evaluation -v`. Retrieval relevance uses expected article titles at article level. Key-point coverage is a literal phrase-match proxy, not a semantic judge, and citation checks verify citation format/index range, not whether a cited passage supports each claim. Human review is needed for answer relevance and factual support. Latency depends on model warm-up, hardware, and database state; report those conditions with results. The first run can be slower while the embedding model initializes. Generation latency is primarily local Ollama/model performance.
 
+### HNSW parameter selection
+
+The [16-configuration sweep](reports/hnsw-sweep.json) on 2706 stored chunks compared M=6, 12, 24 and 48 at session search widths 20, 50, 100 and 200 against an exact scan of the same vectors. Each configuration used 14 questions and five timed repetitions per question.
+
+| M | Recall@5 vs exact (width 20) | Mean SQL latency | Index build time |
+| ---: | ---: | ---: | ---: |
+| 6 | 97.14% | 0.882 ms | 0.316 s |
+| 12 | 100% | 0.878 ms | 0.517 s |
+| 24 | 100% | 0.876 ms | 1.607 s |
+| 48 | 100% | 1.047 ms | 5.198 s |
+
+Increasing search width did not recover the missing neighbors at M=6 in this run. M=12 recovered all exact neighbors at every tested width, with substantially lower construction cost than M=24 or M=48. We therefore select M=12 for new installations and recommend width 20 for this workload. This is nearest-neighbor overlap, not human-judged relevance; the small query set and single index build per M limit generalization. EXPLAIN selected the sweep vector index in every configuration.
+
+Reproduce without modifying the application index (requires CREATE, ALTER and DROP privileges on a dedicated benchmark table):
+
+```bash
+python benchmark_sweep.py
+```
+
+Existing installations retain their original index until explicitly rebuilt. Inspect SHOW CREATE TABLE chunks before migrating; back up the database and schedule index rebuilding during downtime.
+
 ## Corpus
 
 The curated dataset contains 71 English Wikipedia articles in five categories: databases, information retrieval, machine learning, natural-language processing, and computer science. See `data/corpus.json` and `docs/DATASET.md` for the article list and ingestion approach.
@@ -285,7 +306,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## Database Design and Trade-offs
 
-The `articles` table holds source metadata (Wikipedia page ID, title, URL, category, word count and ingestion timestamp). The `chunks` table holds ordered text passages, section labels and 384-dimensional embeddings. A foreign key `chunks.article_id -> articles.id` with `ON DELETE CASCADE` prevents orphan passages; article upserts and chunk replacement commit in one transaction. The vector index uses HNSW with cosine distance and `M=6`; the sentence-transformers `all-MiniLM-L6-v2` model produces the matching 384 dimensions. The evaluated corpus used `CHUNK_WORDS=120` and `CHUNK_OVERLAP=20` to reduce embedding-input truncation. The code defaults may differ unless overridden in `.env`.
+The `articles` table holds source metadata (Wikipedia page ID, title, URL, category, word count and ingestion timestamp). The `chunks` table holds ordered text passages, section labels and 384-dimensional embeddings. A foreign key `chunks.article_id -> articles.id` with `ON DELETE CASCADE` prevents orphan passages; article upserts and chunk replacement commit in one transaction. The vector index uses HNSW with cosine distance and `M=12` for new installations (historical benchmarks used M=6); the sentence-transformers `all-MiniLM-L6-v2` model produces the matching 384 dimensions. The evaluated corpus used `CHUNK_WORDS=120` and `CHUNK_OVERLAP=20` to reduce embedding-input truncation. The code defaults may differ unless overridden in `.env`.
 
 **Why MariaDB rather than a separate vector service?** One SQL query combines semantic ranking, metadata predicates and a relational join. The metadata and vectors participate in the same transactional database, avoiding a separate synchronization pipeline. This does **not** mean every combination of filters automatically uses the HNSW index: inspect `EXPLAIN` for the query shape and data distribution.
 
