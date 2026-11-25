@@ -1,6 +1,7 @@
 """Semantic retrieval with MariaDB vector distance and relational joins."""
 
 import time
+import os
 
 from src.db import connect, vector_literal
 from src.embeddings import embed_query
@@ -25,7 +26,9 @@ def search(question, top_k=TOP_K, category=None, min_article_words=None,
         params.append(fetched_after)
     where = "WHERE " + " AND ".join(predicates) if predicates else ""
 
-    params.append(int(top_k) * 5)
+    pool_factor = max(1, int(os.getenv('RAG_POOL_FACTOR', '5')))
+    article_cap = max(1, int(os.getenv('RAG_ARTICLE_CAP', '2')))
+    params.append(int(top_k) * pool_factor)
     sql = f"""
         SELECT
             c.id AS chunk_id,
@@ -68,7 +71,7 @@ def search(question, top_k=TOP_K, category=None, min_article_words=None,
         article_id = row["article_id"]
         count = article_counts.get(article_id, 0)
 
-        if count < 2:
+        if count < article_cap:
            selected_rows.append(row)
            article_counts[article_id] = count + 1
 
