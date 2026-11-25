@@ -1,0 +1,723 @@
+[
+  {
+    "id": "vector-search",
+    "question": "What is vector search and how does it find similar items?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Vector space model",
+      "Nearest neighbor search"
+    ],
+    "key_points": [
+      "vectors",
+      "similarity",
+      "distance"
+    ]
+  },
+  {
+    "id": "hnsw",
+    "question": "How does an HNSW index help with nearest-neighbor search?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Hierarchical navigable small world",
+      "Nearest neighbor search"
+    ],
+    "key_points": [
+      "graph",
+      "approximate",
+      "neighbors"
+    ]
+  },
+  {
+    "id": "rag",
+    "question": "What are the main stages of retrieval-augmented generation?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Retrieval-augmented generation"
+    ],
+    "key_points": [
+      "retrieve",
+      "context",
+      "generate"
+    ]
+  },
+  {
+    "id": "embeddings",
+    "question": "What is a word embedding and what information does it represent?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Word embedding",
+      "Word2vec",
+      "Sentence embedding"
+    ],
+    "key_points": [
+      "vector",
+      "meaning",
+      "semantic"
+    ]
+  },
+  {
+    "id": "transactions",
+    "question": "What guarantees do ACID database transactions provide?",
+    "category": "databases",
+    "expected_titles": [
+      "ACID",
+      "Database transaction"
+    ],
+    "key_points": [
+      "atomicity",
+      "consistency",
+      "isolation",
+      "durability"
+    ]
+  },
+  {
+    "id": "indexing",
+    "question": "How does a database index make queries faster?",
+    "category": "databases",
+    "expected_titles": [
+      "Database index",
+      "B-tree"
+    ],
+    "key_points": [
+      "lookup",
+      "search",
+      "table"
+    ]
+  },
+  {
+    "id": "bm25",
+    "question": "How does BM25 rank documents for a search query?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Okapi BM25",
+      "Tf–idf"
+    ],
+    "key_points": [
+      "term frequency",
+      "document length",
+      "relevance"
+    ]
+  },
+  {
+    "id": "transformer",
+    "question": "What role does self-attention play in a transformer?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Transformer (deep learning architecture)",
+      "Attention (machine learning)"
+    ],
+    "key_points": [
+      "attention",
+      "tokens",
+      "context"
+    ]
+  },
+  {
+    "id": "sql-joins",
+    "question": "How do SQL joins combine rows from relational tables?",
+    "category": "databases",
+    "expected_titles": [
+      "Join (SQL)",
+      "Relational database"
+    ],
+    "key_points": [
+      "tables",
+      "related",
+      "rows"
+    ]
+  },
+  {
+    "id": "semantic-search",
+    "question": "How is semantic search different from matching exact keywords?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Semantic search",
+      "Information retrieval"
+    ],
+    "key_points": [
+      "meaning",
+      "intent",
+      "similarity"
+    ]
+  },
+  {
+    "id": "normalization",
+    "question": "Why is database normalization used?",
+    "category": "databases",
+    "expected_titles": [
+      "Database normalization",
+      "Relational database"
+    ],
+    "key_points": [
+      "redundancy",
+      "integrity",
+      "tables"
+    ]
+  },
+  {
+    "id": "overfitting",
+    "question": "What is overfitting in machine learning and how can it affect a model?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Overfitting",
+      "Machine learning"
+    ],
+    "key_points": [
+      "training",
+      "generalization",
+      "data"
+    ]
+  },
+  {
+    "id": "cosine",
+    "question": "How does cosine similarity compare two vectors?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Cosine similarity",
+      "Vector space model"
+    ],
+    "key_points": [
+      "angle",
+      "vectors",
+      "similarity"
+    ]
+  },
+  {
+    "id": "hash-table",
+    "question": "How does a hash table use a hash function to store and find data?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Hash table",
+      "Hash function"
+    ],
+    "key_points": [
+      "key",
+      "bucket",
+      "hash"
+    ]
+  },
+  {
+    "id": "ext-relational",
+    "question": "How does a relational model represent information and relationships?",
+    "category": "databases",
+    "expected_titles": [
+      "Relational model",
+      "Relational database"
+    ],
+    "key_points": [
+      "relations",
+      "tuples",
+      "attributes"
+    ]
+  },
+  {
+    "id": "ext-btree",
+    "question": "Why are balanced multiway trees useful for range queries on disk?",
+    "category": "databases",
+    "expected_titles": [
+      "B-tree"
+    ],
+    "key_points": [
+      "balanced",
+      "keys",
+      "nodes"
+    ]
+  },
+  {
+    "id": "ext-isolation",
+    "question": "How can concurrent transactions avoid interfering with one another?",
+    "category": "databases",
+    "expected_titles": [
+      "Concurrency control",
+      "Database transaction"
+    ],
+    "key_points": [
+      "transactions",
+      "isolation",
+      "concurrent"
+    ]
+  },
+  {
+    "id": "ext-optimizer",
+    "question": "How does a DBMS choose among alternative execution plans?",
+    "category": "databases",
+    "expected_titles": [
+      "Query optimization"
+    ],
+    "key_points": [
+      "cost",
+      "plan",
+      "query"
+    ]
+  },
+  {
+    "id": "ext-er",
+    "question": "How can entities and their associations be represented before creating tables?",
+    "category": "databases",
+    "expected_titles": [
+      "Entity–relationship model"
+    ],
+    "key_points": [
+      "entity",
+      "relationship",
+      "attribute"
+    ]
+  },
+  {
+    "id": "ext-nosql",
+    "question": "Why might an application choose a nonrelational database?",
+    "category": "databases",
+    "expected_titles": [
+      "NoSQL"
+    ],
+    "key_points": [
+      "schema",
+      "data",
+      "scalability"
+    ]
+  },
+  {
+    "id": "ext-vector-db",
+    "question": "What does a database designed for embedding storage need to support?",
+    "category": "databases",
+    "expected_titles": [
+      "Vector database"
+    ],
+    "key_points": [
+      "vectors",
+      "similarity",
+      "search"
+    ]
+  },
+  {
+    "id": "ext-sql",
+    "question": "Which language lets users declaratively select and manipulate relational data?",
+    "category": "databases",
+    "expected_titles": [
+      "SQL"
+    ],
+    "key_points": [
+      "select",
+      "query",
+      "data"
+    ]
+  },
+  {
+    "id": "ext-inverted",
+    "question": "How can a search engine locate documents containing a term without scanning every document?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Inverted index",
+      "Search engine indexing"
+    ],
+    "key_points": [
+      "term",
+      "documents",
+      "index"
+    ]
+  },
+  {
+    "id": "ext-tfidf",
+    "question": "Why should a word appearing in nearly every document receive less weight?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Tf–idf"
+    ],
+    "key_points": [
+      "frequency",
+      "document",
+      "term"
+    ]
+  },
+  {
+    "id": "ext-lsh",
+    "question": "How can hashing help find nearby objects approximately?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Locality-sensitive hashing"
+    ],
+    "key_points": [
+      "hash",
+      "similar",
+      "probability"
+    ]
+  },
+  {
+    "id": "ext-knn",
+    "question": "How can nearby labeled examples determine a prediction?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "K-nearest neighbors algorithm"
+    ],
+    "key_points": [
+      "neighbors",
+      "distance",
+      "classification"
+    ]
+  },
+  {
+    "id": "ext-pr",
+    "question": "What is the difference between finding all relevant items and avoiding irrelevant results?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Precision and recall"
+    ],
+    "key_points": [
+      "relevant",
+      "retrieved",
+      "precision"
+    ]
+  },
+  {
+    "id": "ext-ltr",
+    "question": "How can a search engine learn to order results from training examples?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Learning to rank"
+    ],
+    "key_points": [
+      "ranking",
+      "learning",
+      "relevance"
+    ]
+  },
+  {
+    "id": "ext-recommend",
+    "question": "How can a system suggest items based on user preferences?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Recommender system"
+    ],
+    "key_points": [
+      "users",
+      "items",
+      "preferences"
+    ]
+  },
+  {
+    "id": "ext-qa",
+    "question": "How does a system return answers to natural language questions?",
+    "category": "information-retrieval",
+    "expected_titles": [
+      "Question answering"
+    ],
+    "key_points": [
+      "question",
+      "answer",
+      "information"
+    ]
+  },
+  {
+    "id": "ext-supervised",
+    "question": "How can labeled examples be used to predict unseen outcomes?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Supervised learning"
+    ],
+    "key_points": [
+      "training",
+      "labels",
+      "prediction"
+    ]
+  },
+  {
+    "id": "ext-unsupervised",
+    "question": "How can patterns be discovered without labeled training examples?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Unsupervised learning"
+    ],
+    "key_points": [
+      "data",
+      "patterns",
+      "labels"
+    ]
+  },
+  {
+    "id": "ext-gradient",
+    "question": "How can derivatives guide iterative minimization of an objective?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Gradient descent"
+    ],
+    "key_points": [
+      "gradient",
+      "minimum",
+      "step"
+    ]
+  },
+  {
+    "id": "ext-sgd",
+    "question": "Why use a randomly chosen training example rather than the whole dataset for an update?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Stochastic gradient descent"
+    ],
+    "key_points": [
+      "gradient",
+      "sample",
+      "iteration"
+    ]
+  },
+  {
+    "id": "ext-backprop",
+    "question": "How are derivatives propagated through layers of a neural network?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Backpropagation"
+    ],
+    "key_points": [
+      "gradient",
+      "chain rule",
+      "weights"
+    ]
+  },
+  {
+    "id": "ext-kmeans",
+    "question": "How can observations be grouped around iteratively updated centroids?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "K-means clustering"
+    ],
+    "key_points": [
+      "clusters",
+      "centroids",
+      "distance"
+    ]
+  },
+  {
+    "id": "ext-pca",
+    "question": "How can correlated features be projected onto directions of maximum variance?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Principal component analysis"
+    ],
+    "key_points": [
+      "variance",
+      "components",
+      "projection"
+    ]
+  },
+  {
+    "id": "ext-rl",
+    "question": "How can an agent learn behavior from rewards received through interaction?",
+    "category": "machine-learning",
+    "expected_titles": [
+      "Reinforcement learning"
+    ],
+    "key_points": [
+      "agent",
+      "reward",
+      "environment"
+    ]
+  },
+  {
+    "id": "ext-nlp",
+    "question": "What field enables computers to process human language?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Natural language processing"
+    ],
+    "key_points": [
+      "language",
+      "computer",
+      "text"
+    ]
+  },
+  {
+    "id": "ext-lm",
+    "question": "How can a statistical model assign probabilities to sequences of words?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Language model"
+    ],
+    "key_points": [
+      "probability",
+      "sequence",
+      "words"
+    ]
+  },
+  {
+    "id": "ext-llm",
+    "question": "What distinguishes large language models from smaller traditional language models?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Large language model"
+    ],
+    "key_points": [
+      "parameters",
+      "training",
+      "language"
+    ]
+  },
+  {
+    "id": "ext-gpt",
+    "question": "How does autoregressive pretraining support text generation?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Generative pre-trained transformer"
+    ],
+    "key_points": [
+      "transformer",
+      "training",
+      "tokens"
+    ]
+  },
+  {
+    "id": "ext-bert",
+    "question": "Why is bidirectional context useful for understanding text?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "BERT (language model)"
+    ],
+    "key_points": [
+      "bidirectional",
+      "context",
+      "transformer"
+    ]
+  },
+  {
+    "id": "ext-w2v",
+    "question": "How can surrounding words be used to learn numerical word representations?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Word2vec"
+    ],
+    "key_points": [
+      "context",
+      "words",
+      "vectors"
+    ]
+  },
+  {
+    "id": "ext-sentence",
+    "question": "How can entire sentences be represented for semantic comparison?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Sentence embedding"
+    ],
+    "key_points": [
+      "sentence",
+      "vector",
+      "semantic"
+    ]
+  },
+  {
+    "id": "ext-hallucination",
+    "question": "What is it called when a generative model produces plausible but false information?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Hallucination (artificial intelligence)"
+    ],
+    "key_points": [
+      "false",
+      "information",
+      "model"
+    ]
+  },
+  {
+    "id": "ext-prompt",
+    "question": "How can instructions and examples influence a language model's output?",
+    "category": "natural-language-processing",
+    "expected_titles": [
+      "Prompt engineering"
+    ],
+    "key_points": [
+      "prompt",
+      "model",
+      "instructions"
+    ]
+  },
+  {
+    "id": "ext-algorithm",
+    "question": "What makes a sequence of computational steps an algorithm?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Algorithm"
+    ],
+    "key_points": [
+      "steps",
+      "input",
+      "output"
+    ]
+  },
+  {
+    "id": "ext-structures",
+    "question": "Why organize information differently depending on the operations required?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Data structure"
+    ],
+    "key_points": [
+      "data",
+      "operations",
+      "organization"
+    ]
+  },
+  {
+    "id": "ext-complexity",
+    "question": "How does computational running time change as input size grows?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Time complexity",
+      "Big O notation"
+    ],
+    "key_points": [
+      "time",
+      "input",
+      "growth"
+    ]
+  },
+  {
+    "id": "ext-graph",
+    "question": "How can connections between objects be represented mathematically in a data structure?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Graph (abstract data type)"
+    ],
+    "key_points": [
+      "vertices",
+      "edges",
+      "graph"
+    ]
+  },
+  {
+    "id": "ext-hash",
+    "question": "How can arbitrary inputs be mapped to fixed-size values?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Hash function"
+    ],
+    "key_points": [
+      "input",
+      "hash",
+      "value"
+    ]
+  },
+  {
+    "id": "ext-ai",
+    "question": "What is the field concerned with machines performing tasks associated with intelligence?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Artificial intelligence"
+    ],
+    "key_points": [
+      "intelligence",
+      "machines",
+      "learning"
+    ]
+  },
+  {
+    "id": "ext-cs",
+    "question": "What discipline studies computation, algorithms and information processing?",
+    "category": "computer-science",
+    "expected_titles": [
+      "Computer science"
+    ],
+    "key_points": [
+      "computation",
+      "algorithms",
+      "information"
+    ]
+  }
+]
